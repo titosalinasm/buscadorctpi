@@ -1,0 +1,138 @@
+h1 {
+    font-family: montserrat-bold,Arial;
+    color: rgb(0, 0, 0);
+    /* font-size: 1.5rem; */
+    line-height: 1.5rem;
+    /* margin-bottom: 32px; */
+}
+/* .ctn-steps  */
+h3 {
+    font-family: montserrat-bold,Arial;
+    font-size: 1.125rem;
+    line-height: 1;
+    margin-bottom: 0;
+}
+
+/* .ctn-steps  */
+p {
+    font-family: montserrat-regular,Arial;
+    font-size: .875rem;
+    line-height: 1;
+    /* margin-bottom: 18px; */
+}
+
+.ctn-sector {
+    padding: 25px 0 40px;
+}
+
+/*.ctn-sector */.sector {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    padding-left: 38px;
+}
+
+
+._m_logo_proceso{
+display: none;
+}
+/*.ctn-sector */.lnkSector {
+    display: block;
+    text-align: center;
+    width: 160px;
+    height: 160px;
+    border: 2px solid #9c0808;
+    border-radius: 8px;
+    color: #000;
+    padding: 24px 0 12px;
+    box-shadow: 0px 0px 2px 1px #d08080;
+    margin: 10px;
+}
+
+/*.ctn-sector */.lnkSector:hover {
+    text-decoration: none;
+    background-color:#d08080;
+    /* background-color: #c0e8f6; */
+}
+
+.lnkSector p{
+    font-weight: bold;
+}
+
+/*.ctn-sector */.sector .toopltip {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -13px;
+    text-align: justify;
+}
+
+._margin_movil{
+    /* padding-left: 20px; */
+}
+
+
+@media (max-width: 575px) {
+    ._txtley{
+        width: 100%;
+        text-align: justify;
+    }
+    ._m_logo_proceso{
+        display: block;
+        margin-left: 5px;
+        }
+    ._logo_proceso{
+            display: none;
+            }
+
+    ._margin_movil{
+        margin-left: 30px;
+    }       
+
+    .lnkSector {
+        display: block;
+        text-align: center;
+        width: 160px;
+        height: 160px;
+        border: 2px solid  #9c0808;
+        border-radius: 8px;
+        color: #000;
+        padding: 24px 0 12px;
+        box-shadow: 0px 0px 2px 1px #e4e4e4;
+        margin: 10px;
+    }
+}
+
+@media (min-width: 576px) {
+    ._txtley{
+        width: 800px;
+        text-align: justify;
+    }
+}
+
+._link{
+    color: #007bff !important;
+    text-decoration: none !important;
+}
+._link:hover{
+    cursor: pointer !important;
+    text-decoration: underline !important;
+}
+
+@media (max-width: 575px) {
+    ._img1{ display: none !important; }
+    ._img2{ display: inline !important; }    
+}
+
+@media (min-width: 576px) {
+    ._img1{ display: inline !important; }
+    ._img2{ display: none !important; }
+}
+
+.color_blue{
+  color:  #35b6e1;
+  font-family: MontserratBold,Arial;
+  font-size: 2.25rem;
+  line-height: 1;
+  font-weight: 400;
+}

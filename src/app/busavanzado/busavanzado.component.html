@@ -1,0 +1,1042 @@
+<app-menu></app-menu>
+<app-banner-principal></app-banner-principal>
+
+<div class="container-fluid">
+
+    <div class="row justify-content-around">
+        <div class="ctn-steps step0  col-md-9">
+          <div class="container">
+            <br>
+            <div class="row">
+              <div class="col-sm mt-2 mb-3">
+                <h3 >
+                  <div >Busqueda avanzada</div>
+                </h3>
+                <h5>Busque el conocimiento con datos más específicos, tales como:</h5>
+              </div>
+            </div>
+
+            <div>
+                <tabset>
+                  <tab heading="Patentes">
+                    <div class="row">
+                        <div class="col-sm mt-2 mb-3">
+                            <div class="form-row margin_top_10">
+                                <div class="form-group col-sm-6">
+                                    <h6>Nombre científico</h6>
+                                    <div>
+                                      <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="name" placeholder="Nombre Cientifico"
+                                        (completeMethod)="search($event)" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                                        styleClass="wid100"></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <h6>Nombre común(Resumen)</h6>
+                                    <input type="text" class="form-control"  placeholder="Resumen"> 
+                                </div>
+                            </div>
+                            <div class="form-row margin_top_10">
+                                <div class="form-group col-sm-6">
+                                    <h6>Título de patente</h6>
+                                    <input type="text" class="form-control"  placeholder="Título de patente"> 
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <h6>Solicitante</h6>
+                                    <input type="text" class="form-control"  placeholder="Nombre del solicitante"> 
+                                </div>
+                            </div>
+                            <div class="form-row margin_top_10">
+                                <div class="form-group col-sm-6">
+                                    <h6>Número de publicacion</h6>
+                                    <input type="text" class="form-control"   placeholder="Número de publicación"> 
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <h6>Reivindicacion</h6>
+                                    <input type="text" class="form-control"   placeholder="Ejemplo: Reivindicacion"> 
+                                </div>
+                            </div>
+
+                            <div class="form-row margin_top_10">
+                                <div class="form-group col-sm-6">
+                                    <h6>Actividad farmacológica</h6>
+                                    <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'100%'}"  > </p-multiSelect>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                  <h6>CIP</h6>
+                                  <input type="text" class="form-control"   placeholder="Ejemplo: CIP"> 
+                              </div>
+                            </div>
+                           
+                              
+                            
+                              <button type="submit" class="btn btn-primary" style="float:right;">Buscar</button>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm mt-2 mb-3">
+                                <h5>Se encontrarón 4 resultados para patentes.</h5>
+                                <table class="table table-sm">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Nro</th>
+                                      <th scope="col">Fuente</th>
+                                      <th scope="col">Recursos</th>
+                                      <th scope="col">Actividad</th>
+                                      <th scope="col">Solicitante/Pueblo Indigena/Autor</th>
+                                      <th scope="col">Nro. Registro / Nro. Publicación</th>
+                                      <th scope="col">Fecha Publicación / Presentación</th>
+                                      <th scope="col">Detalle</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td colspan="8">
+                                        <table class="table">
+                                          <tbody>
+                                            <th rowspan="3" scope="row">1</th>
+                                            <td rowspan="3" >PATENTE</td>
+                                            <td>Lepidium meyenii Walp. </td>
+                                            <td>Osteoporosis</td>
+                                            <td>Maritsabel Antonio</td>
+                                            <td>2801 / 1234567 </td>
+                                            <td>11/01/2021 </td>
+                                            <td><button class="btn" (click)="openModal(md_patentes)"><i class="fa fa-search"></i></button></td>
+                                            <tr>
+                                              <th >Resumen:</th>
+                                              <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="8">
+                                        <table class="table">
+                                          <tbody>
+                                            <th rowspan="3" scope="row">2</th>
+                                            <td rowspan="3" >PATENTE</td>
+                                            <td>Lepidium meyenii Walp. </td>
+                                            <td>Osteoporosis</td>
+                                            <td>Maritsabel Antonio</td>
+                                            <td>2801 / 1234567 </td>
+                                            <td>11/01/2021 </td>
+                                            <td><button class="btn" (click)="openModal(md_patentes)"><i class="fa fa-search"></i></button></td>
+                                            <tr>
+                                              <th >Resumen:</th>
+                                              <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="8">
+                                        <table class="table">
+                                          <tbody>
+                                            <th rowspan="3" scope="row">3</th>
+                                            <td rowspan="3" >PATENTE</td>
+                                            <td>Lepidium meyenii Walp. </td>
+                                            <td>Osteoporosis</td>
+                                            <td>Maritsabel Antonio</td>
+                                            <td>2801 / 1234567 </td>
+                                            <td>11/01/2021 </td>
+                                            <td><button class="btn" (click)="openModal(md_patentes)"><i class="fa fa-search"></i></button></td>
+                                            <tr>
+                                              <th >Resumen:</th>
+                                              <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                  <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-end">
+                                      <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                      </li>
+                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                      <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                      </li>
+                                    </ul>
+                                  </nav>
+                            </div>
+                          </div>
+
+
+                  </tab>
+                  <tab heading="Informacion documental">
+                      
+                    <div class="row">
+                        <div class="col-sm mt-2 mb-3">
+                            <div class="form-row margin_top_10">
+                                <div class="form-group col-sm-12">
+                                    <h6>Tipo de conocimiento</h6>
+                                      <select class="form-control" aria-label=".form-select-lg example"  (change)="doComboTipoConocimiento()">
+                                        <!-- <option selected>Seleccione tipo de conocimiento</option> -->
+                                        <option value="1" selected>Conocimiento tradicional</option>
+                                        <option value="2" >Conocimiento técnico (Información tecnica)</option>
+                                      </select>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <h6>Nombre científico</h6>
+                                    <div>
+                                      <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="name" placeholder="Nombre Cientifico"
+                                        (completeMethod)="search($event)" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                                        styleClass="wid100"></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <h6>Descripcion del conocimiento</h6>
+                                    <input type="text" class="form-control"  placeholder="Resumen"> 
+                                </div>
+                            </div>
+                            
+                            <div class="form-row margin_top_10" *ngIf="!blShowTT">
+                                <div class="form-group col-sm-6">
+                                  <h6>Nombre común</h6>
+                                  <input type="text" class="form-control"  placeholder="Nombre común"> 
+                                </div>
+                               
+                                <div class="form-group col-sm-6">
+                                  <h6>Tipo de bibliografia</h6>
+                                    <select class="form-control" aria-label=".form-select-lg example">
+                                      <option selected>Seleccione tipo</option>
+                                      <option value="1">Libro</option>
+                                      <option value="2">Articulo Revista</option>
+                                      <option value="2">Articulo enciclopedia</option>
+                                      <option value="2">Periodistico</option>
+                                    </select>
+                              </div>
+                            </div>
+                              
+                            <div class="form-row margin_top_10">
+                              <div class="form-group col-sm-6" *ngIf="!blShowTT">
+                                <h6>Pueblo</h6>
+                                  <select class="form-control" aria-label=".form-select-lg example">
+                                    <option selected>Seleccione pueblo</option>
+                                    <option value="1">Ashaninka</option>
+                                    <option value="2">Chitonahua</option>
+                                    <option value="2">Jaqaru</option>
+                                    <option value="2">Kichwa</option>
+                                    <option value="2">Madija</option>
+                                  </select>
+                              </div>
+                              <div class="form-group col-sm-6">
+                                <h6>Actividad</h6>
+                                <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'100%'}" > </p-multiSelect>
+                            </div>
+                              </div>
+                            
+                              <button type="submit" class="btn btn-primary" style="float:right;">Buscar</button>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm mt-2 mb-3">
+                                <h5>Se encontrarón 4 resultados para conocimiento.</h5>
+                                <table class="table table-sm">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Nro</th>
+                                      <th scope="col">Fuente</th>
+                                      <th scope="col">Recursos</th>
+                                      <th scope="col">Actividad</th>
+                                      <th scope="col">Solicitante/Pueblo Indigena/Autor</th>
+                                      <th scope="col">Nro. Registro / Nro. Publicación</th>
+                                      <th scope="col">Fecha Publicación / Presentación</th>
+                                      <th scope="col">Detalle</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td colspan="8">
+                                        <table class="table">
+                                          <tbody>
+                                            <th rowspan="3" scope="row">1</th>
+                                            <td rowspan="3" >PATENTE</td>
+                                            <td>Lepidium meyenii Walp. </td>
+                                            <td>Osteoporosis</td>
+                                            <td>Maritsabel Antonio</td>
+                                            <td>2801 / 1234567 </td>
+                                            <td>11/01/2021 </td>
+                                            <td><button class="btn" (click)="openModal(md_conocimiento_tradicional)"><i class="fa fa-search"></i></button></td>
+                                            <tr>
+                                              <th >Resumen:</th>
+                                              <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+              
+                                  </tbody>
+                                </table>
+                                  <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-end">
+                                      <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                      </li>
+                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                      <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                      </li>
+                                    </ul>
+                                  </nav>
+                            </div>
+                          </div>
+
+                  </tab>
+                  <tab heading="Todas las coleciones">
+                    <div class="row">
+                      <div class="col-sm mt-2 mb-3">
+                        <div class="form-row">
+                          <div class="form-group col-sm-6">
+                            <label>Nombre científico</label>
+                            <div>
+                              <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="name"
+                                (completeMethod)="search($event)" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                                styleClass="wid100"></p-autoComplete>
+                            </div>
+                            <small class="form-text text-muted">Se búscará en todas las colecciones.</small>
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label>Actividad farmacológica</label>
+                            <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'100%'}" > </p-multiSelect>
+                          </div>
+                          <div class="form-group col-sm-12">
+                            <form [formGroup]="orderForm">
+                              <div
+                                formArrayName="items"
+                                *ngFor="let 
+                                item of orderForm.get('items')['controls']; let i = index;"
+                              >
+                              <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                                <div [formGroupName]="i">
+                                  <div class="form-row">
+                                  <div class="form-group  col-sm-10">
+                                    <input formControlName="name"  class="form-control"  placeholder="Ingrese dato">
+                                  </div>
+                                  <div class="form-group col-sm-2">
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="float: right;">
+                                      <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked> -->
+                                      <label class="btn btn-outline-primary" for="btnradio1"  (click)="addItem()">Y</label>
+                                    
+                                      <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"> -->
+                                      <!-- <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label> -->
+                                    
+                                      <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"> -->
+                                      <label class="btn btn-outline-primary" for="btnradio3"  (click)="addItem()">O</label>
+                                    </div>
+                                    <!-- <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton> -->
+                                  </div>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                              <!-- <button type="button" (click)="addItem()" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i></button> -->
+                            </form>
+                        </div>
+        
+                        
+                         
+                        
+                        </div>
+                        <div class="form-group">  
+                        </div>
+            
+                        <button type="submit" class="btn btn-primary" style="float:right;">Buscar</button>
+                        <button type="button" class="btn btn-outline-danger" style="float:right;margin-right: 5px;">Limpiar
+                        </button>
+                      </div>
+                    </div>
+            
+                    <div>
+                      <tabset>
+                        <tab heading="Todos los resultados">
+            
+                          <div class="row">
+                            <div class="col-sm mt-2 mb-3">
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <h5>Se encontrarón 3 resultados.</h5>
+                                </div>
+                                <div class="col-sm-6">
+                                  <button type="button" class="btn btn-outline-primary"
+                                    style="float:right;margin-bottom: 5px;">Imprimir </button>
+                                </div>
+                              </div>
+            
+            
+                              <table class="table table-sm">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Nro</th>
+                                    <th scope="col">Fuente</th>
+                                    <th scope="col">Recursos</th>
+                                    <th scope="col">Actividad</th>
+                                    <th scope="col">Solicitante/Pueblo Indigena/Autor</th>
+                                    <th scope="col">Nro. Registro / Nro. Publicación</th>
+                                    <th scope="col">Fecha Publicación / Presentación</th>
+                                    <th scope="col">Detalle</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="8">
+                                          <table class="table">
+                                            <tbody>
+                                              <th rowspan="3" scope="row">1</th>
+                                              <td rowspan="3" >PATENTE</td>
+                                              <td>Lepidium meyenii Walp. </td>
+                                              <td>Osteoporosis</td>
+                                              <td>Maritsabel Antonio</td>
+                                              <td>2801 / 1234567 </td>
+                                              <td>11/01/2021 </td>
+                                              <td><button class="btn" (click)="openModal(md_conocimiento_tradicional)"><i class="fa fa-search"></i></button></td>
+                                              <tr>
+                                                <th >Resumen:</th>
+                                                <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+        
+                                      <tr>
+                                        <td colspan="8">
+                                          <table class="table">
+                                            <tbody>
+                                              <th rowspan="3" scope="row">2</th>
+                                              <td rowspan="3" >Conocimiento tradicional</td>
+                                              <td>Lepidium meyenii Walp. </td>
+                                              <td>Osteoporosis</td>
+                                              <td>Maritsabel Antonio</td>
+                                              <td>2801 / 1234567 </td>
+                                              <td>11/01/2021 </td>
+                                              <td><button class="btn" (click)="openModal(md_conocimiento_tradicional)"><i class="fa fa-search"></i></button></td>
+                                              <tr>
+                                                <th >Resumen:</th>
+                                                <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+        
+                                      <tr>
+                                        <td colspan="8">
+                                          <table class="table">
+                                            <tbody>
+                                              <th rowspan="3" scope="row">3</th>
+                                              <td rowspan="3" >Informacion tecnica</td>
+                                              <td>Lepidium meyenii Walp. </td>
+                                              <td>Osteoporosis</td>
+                                              <td>Maritsabel Antonio</td>
+                                              <td>2801 / 1234567 </td>
+                                              <td>11/01/2021 </td>
+                                              <td><button class="btn" (click)="openModal(md_conocimiento_tecnico)"><i class="fa fa-search"></i></button></td>
+                                              <tr>
+                                                <th >Resumen:</th>
+                                                <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+            
+                                </tbody>
+                              </table>
+                              <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                  </li>
+                                </ul>
+                              </nav>
+                            </div>
+                          </div>
+            
+            
+            
+                        </tab>
+                     
+                      </tabset>
+                    </div>
+                  </tab>
+                </tabset>
+              </div>
+              </div>
+          </div>
+          </div>
+    </div>
+
+
+    <ng-template #md_patentes>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Patente</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+        <div>
+          <tabset>
+            <tab heading="Detalle">
+    
+              <div class="form-row margin_top_10">
+                <div class="form-group col-sm-12">
+                  <h6>Solicitante</h6>
+                  <div class="box_brown">
+                    Maritsabel Antonio
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Título (Español)</h6>
+                  <div class="box_brown">
+                    xxxMethod for extracting effective component of maca
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Título (Inglés)</h6>
+                  <div class="box_brown">
+                    Method for extracting effective component of maca
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Número de publicación</h6>
+                  <div class="box_brown">
+                    124555
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Fecha de públicacion</h6>
+                  <div class="box_brown">
+                    10/12/2020
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Reivindicacion</h6>
+                  <div class="box_brown">
+                    sssss
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>CIP</h6>
+                  <div class="box_brown">
+                    KFKFK
+                  </div>
+                </div>
+               
+                <div class="form-group col-sm-4">
+                  <h6>Pub. Country Code</h6>
+                  <div class="box_brown">
+                    No hay Información registrada
+                  </div>
+                </div>
+                <div class="form-group col-sm-4">
+                  <h6>Pub. Year</h6>
+                  <div class="box_brown">
+                    No hay Información registrada
+                  </div>
+                </div>
+                <div class="form-group col-sm-4">
+                  <h6>App. Date</h6>
+                  <div class="box_brown">
+                    ---------------
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Ventaja técnica</h6>
+                  <div class="box_brown">
+                    KFKFK
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Resúmen en español</h6>
+                  <div class="box_brown">
+                    <p class="mb-0">No hay informacion registrada.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Resúmen en ingles</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+              </div>
+    
+            </tab>
+            <tab heading="Recursos Biológicos">
+              <div class="form-row margin_top_10">
+                <div class="form-group col-sm-6">
+                  <h6>Nombre común</h6>
+                  <div class="box_brown">
+                    xxxMethod for extracting effective component of maca
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Nombre cientifico</h6>
+                  <div class="box_brown">
+                    Method for extracting effective component of maca
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Nombre familia</h6>
+                  <div class="box_brown">
+                    <p class="mb-0">No hay informacion registrada.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Sinonimos bótanicos</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Reino</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Clase</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab heading="Actividad farmacológica">
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <h6>Actividad 1</h6>
+                  <div class="box_brown">
+                    Mi actividad 1
+                  </div>
+    
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Actividad 2</h6>
+                  <div class="box_brown">
+                    Mi actividad 2
+                  </div>
+    
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Actividad 3</h6>
+                  <div class="box_brown">
+                    Mi actividad 3
+                  </div>
+    
+                </div>
+    
+              </div>
+            </tab>
+            <tab heading="Imprimir">
+              <div class="form-group col-sm-12">
+                <h6>Datos que se imprimirán</h6>
+                <div class="box_brown">
+                  Información a imprimir
+                </div>
+    
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
+                  </button>
+                </div>
+    
+              </div>
+            </tab>
+    
+          </tabset>
+        </div>
+    
+    
+      </div>
+    </ng-template>
+    
+    <ng-template #md_conocimiento_tradicional>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Conocimiento tradicional</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+        <div>
+          <tabset>
+            <tab heading="Información general">
+    
+              <div class="form-row margin_top_10">
+                <div class="form-group col-sm-12">
+                  <h6>Solicitante</h6>
+                  <div class="box_brown">
+                    Maritsabel Antonio
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Título (Español)</h6>
+                  <div class="box_brown">
+                    Alimento: Hoja como verdura
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Título (Inglés)</h6>
+                  <div class="box_brown">
+                    No hay informacion registrada
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Nro	Nombre Común</h6>
+                  <div class="box_brown">
+                    maca; maka; maca-maca; maino, ayak, chichira, ayak willku, huto-huto, peruvian ginseng
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Nombre Científico</h6>
+                  <div class="box_brown">
+                    Lepidium meyenii Walp.
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Familia</h6>
+                  <div class="box_brown">
+                    Mi familia
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Reino</h6>
+                  <div class="box_brown">
+                  mi reino
+                  </div>
+                </div>
+    
+               
+            
+                <div class="form-group col-sm-12">
+                  <h6>Resúmen en español</h6>
+                  <div class="box_brown">
+                    <p class="mb-0">No hay informacion registrada.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Resúmen en ingles</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+              </div>
+    
+            </tab>
+            <tab heading="Recursos Biológicos">
+              <div class="form-row margin_top_10">
+                <div class="form-group col-sm-6">
+                  <h6>Nombre común</h6>
+                  <div class="box_brown">
+                    xxxMethod for extracting effective component of maca
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Nombre cientifico</h6>
+                  <div class="box_brown">
+                    Method for extracting effective component of maca
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Nombre familia</h6>
+                  <div class="box_brown">
+                    <p class="mb-0">No hay informacion registrada.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Sinonimos bótanicos</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Reino</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Clase</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab heading="Bibliografia">
+              <div class="form-row margin_top_10">
+                <div class="form-group col-sm-12">
+                  <h6>Detalle 1</h6>
+                  <div class="box_brown">
+                    Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
+                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+    
+                <div class="form-group col-sm-12">
+                  <h6>Detalle 2</h6>
+                  <div class="box_brown">
+                    Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
+                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+               
+    
+              </div>
+            </tab>
+            <tab heading="Actividad farmacológica">
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <h6>Actividad 1</h6>
+                  <div class="box_brown">
+                    Mi actividad 1
+                  </div>
+    
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Actividad 2</h6>
+                  <div class="box_brown">
+                    Mi actividad 2
+                  </div>
+    
+                </div>
+    
+              </div>
+            </tab>
+            <tab heading="Imprimir">
+              <div class="form-group col-sm-12">
+                <h6>Datos que se imprimirán</h6>
+                <div class="box_brown">
+                  Información a imprimir
+                </div>
+    
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
+                  </button>
+                </div>
+    
+              </div>
+            </tab>
+    
+          </tabset>
+        </div>
+    
+    
+      </div>
+    </ng-template>
+    
+    <ng-template #md_conocimiento_tecnico>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Conocimiento técnico</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    
+        <div>
+          <tabset>
+            <tab heading="Información general">
+    
+              <div class="form-row margin_top_10">
+                <div class="form-group col-sm-12">
+                  <h6>Solicitante</h6>
+                  <div class="box_brown">
+                    Maritsabel Antonio
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Título (Español)</h6>
+                  <div class="box_brown">
+                    Alimento: Hoja como verdura
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Título (Inglés)</h6>
+                  <div class="box_brown">
+                    No hay informacion registrada
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Nro	Nombre Común</h6>
+                  <div class="box_brown">
+                    maca; maka; maca-maca; maino, ayak, chichira, ayak willku, huto-huto, peruvian ginseng
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Nombre Científico</h6>
+                  <div class="box_brown">
+                    Lepidium meyenii Walp.
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Familia</h6>
+                  <div class="box_brown">
+                    Mi familia
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Reino</h6>
+                  <div class="box_brown">
+                  mi reino
+                  </div>
+                </div>
+    
+               
+            
+                <div class="form-group col-sm-12">
+                  <h6>Resúmen en español</h6>
+                  <div class="box_brown">
+                    <p class="mb-0">No hay informacion registrada.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Resúmen en ingles</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+              </div>
+    
+            </tab>
+            <tab heading="Recursos Biológicos">
+              <div class="form-row margin_top_10">
+                <div class="form-group col-sm-6">
+                  <h6>Nombre común</h6>
+                  <div class="box_brown">
+                    xxxMethod for extracting effective component of maca
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Nombre cientifico</h6>
+                  <div class="box_brown">
+                    Method for extracting effective component of maca
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Nombre familia</h6>
+                  <div class="box_brown">
+                    <p class="mb-0">No hay informacion registrada.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Sinonimos bótanicos</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Reino</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <h6>Clase</h6>
+    
+                  <div class="box_brown">
+                    <p class="mb-0">Method for extracting effective component of maca.</p>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab heading="Bibliografia">
+              <div class="form-row margin_top_10">
+                <div class="form-group col-sm-12">
+                  <h6>Detalle 1</h6>
+                  <div class="box_brown">
+                    Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
+                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+    
+                <div class="form-group col-sm-12">
+                  <h6>Detalle 2</h6>
+                  <div class="box_brown">
+                    Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
+                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+               
+    
+              </div>
+            </tab>
+            <tab heading="Actividad farmacológica">
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <h6>Actividad 1</h6>
+                  <div class="box_brown">
+                    Mi actividad 1
+                  </div>
+    
+                </div>
+                <div class="form-group col-sm-12">
+                  <h6>Actividad 2</h6>
+                  <div class="box_brown">
+                    Mi actividad 2
+                  </div>
+    
+                </div>
+    
+              </div>
+            </tab>
+            <tab heading="Imprimir">
+              <div class="form-group col-sm-12">
+                <h6>Datos que se imprimirán</h6>
+                <div class="box_brown">
+                  Información a imprimir
+                </div>
+    
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
+                  </button>
+                </div>
+    
+              </div>
+            </tab>
+    
+          </tabset>
+        </div>
+    
+    
+      </div>
+    </ng-template>
