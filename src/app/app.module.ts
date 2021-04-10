@@ -7,7 +7,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { FooterComponent } from './footer/footer.component';
 import { BannerPrincipalComponent } from './banner-principal/banner-principal.component';
 import { MenuComponent } from './menu/menu.component';
-import { SpinnerComponent } from './spinner/spinner.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,7 +19,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import {
   ToastrModule,
   ToastNoAnimation,
-  ToastNoAnimationModule, 
+  ToastNoAnimationModule,
 } from 'ngx-toastr';
 import { BussimpleComponent } from './bussimple/bussimple.component';
 import { BusavanzadoComponent } from './busavanzado/busavanzado.component';
@@ -29,6 +29,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {InputTextModule} from 'primeng/inputtext';
 import {SelectButtonModule} from 'primeng/selectbutton';
 
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,6 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     FooterComponent,
     BannerPrincipalComponent,
     MenuComponent,
-    SpinnerComponent,
     BussimpleComponent,
     BusavanzadoComponent
   ],
@@ -57,6 +58,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     AutoCompleteModule,
     InputTextModule,
     SelectButtonModule,
+    NgxSpinnerModule,
 
   ],
   providers: [],

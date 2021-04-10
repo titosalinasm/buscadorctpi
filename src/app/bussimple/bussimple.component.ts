@@ -28,7 +28,7 @@ export class BussimpleComponent implements OnInit {
 
 
   constructor(private modalService: BsModalService,
-              private formBuilder: FormBuilder ) { 
+              private formBuilder: FormBuilder ) {
 
     this.cities = [
       {name: 'Abortivo', code: 'NY'},
@@ -40,7 +40,6 @@ export class BussimpleComponent implements OnInit {
 
   this.stateOptions = [{label: 'Y', value: 'Y'}, {label: 'O', value: 'O'}];
 
-
   }
 
   ngOnInit(): void {
@@ -49,12 +48,12 @@ export class BussimpleComponent implements OnInit {
       email: '',
       items: this.formBuilder.array([this.createItem()])
     });
-    
+
 
   }
 
   search(event) {
-    this.results=[ 
+    this.results=[
       {"name":"Lepidium 1"},
       {"name":"Lepidium 2"},
       {"name":"Lepidium 3"},
@@ -83,5 +82,5 @@ createItem(): FormGroup {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { id: 1, class: 'modal-lg' });
   }
-  
+
 }

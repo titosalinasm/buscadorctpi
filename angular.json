@@ -156,6 +156,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "appDINBus"
+    }
+  },
+  "defaultProject": "appDINBus",
+  "cli": {
+    "analytics": "cc01feee-c8af-4a2d-94c4-4deb82e4062c"
+  }
 }

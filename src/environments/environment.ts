@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrlServiciceCTPI: 'https://qa2.indecopi.gob.pe/appDINBuscadorCTPI',
-  apiUrlServiceOauth:  'https://qa2.indecopi.gob.pe/appTodosServicioAutorizacion/oauth/token'
+  apiUrlServiciceCTPI: 'http://localhost:8080/appDINBuscadorCTPIApi',
+  apiUrlServiceOauth:  'http://desweblogic2.indecopi.gob.pe:10000/appTodosServicioAutorizacion'
 };
 
 /*
