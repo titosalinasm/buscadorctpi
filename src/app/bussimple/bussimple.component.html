@@ -17,40 +17,44 @@
         </div>
         <tabset>
           <tab heading="Todas las coleciones">
+
             <div class="row">
               <div class="col-sm mt-2 mb-3">
                 <div class="form-row">
                   <div class="form-group col-sm-6">
                     <label>Nombre científico</label>
                     <div>
-                      <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="name"
-                        (completeMethod)="search($event)" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                      <p-autoComplete
+                       [(ngModel)]="vcNombreCientificoSelect"
+                       [suggestions]="results"
+                       field="vcNombreCientifico"
+                       (completeMethod)="doSugerencia($event)"
+                       [style]="{'width':'100%'}"
+                       [inputStyle]="{'width':'100%'}"
+                       [minLength]="3"
                         styleClass="wid100"></p-autoComplete>
                     </div>
                     <small class="form-text text-muted">Se búscará en todas las colecciones.</small>
                   </div>
                   <div class="form-group col-sm-6">
                     <label>Actividad farmacológica</label>
-                    <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'100%'}" > </p-multiSelect>
+                    <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="lstActividad" [(ngModel)]="lstActividadSelect" optionLabel="vcActividad" [style]="{'width':'100%'}" > </p-multiSelect>
                   </div>
-                 
-                
-                 
-                
+
                 </div>
-                <div class="form-group">  
+                <div class="form-group">
                 </div>
-    
-                <button type="submit" class="btn btn-primary" style="float:right;">Buscar</button>
+
+                <button type="submit" class="btn btn-primary" style="float:right;" (click)="doSeleccionar()">Buscar</button>
                 <button type="button" class="btn btn-outline-danger" style="float:right;margin-right: 5px;">Limpiar
                 </button>
               </div>
             </div>
-    
+
             <div>
               <tabset>
                 <tab heading="Todos los resultados">
-    
+
                   <div class="row">
                     <div class="col-sm mt-2 mb-3">
                       <div class="row">
@@ -62,8 +66,8 @@
                             style="float:right;margin-bottom: 5px;">Imprimir </button>
                         </div>
                       </div>
-    
-    
+
+
                       <table class="table table-sm">
                         <thead>
                           <tr>
@@ -140,7 +144,7 @@
                                   </table>
                                 </td>
                               </tr>
-    
+
                         </tbody>
                       </table>
                       <nav aria-label="Page navigation example">
@@ -158,11 +162,11 @@
                       </nav>
                     </div>
                   </div>
-    
-    
-    
+
+
+
                 </tab>
-             
+
               </tabset>
             </div>
           </tab>
@@ -233,7 +237,7 @@
                 KFKFK
               </div>
             </div>
-           
+
             <div class="form-group col-sm-4">
               <h6>Pub. Country Code</h6>
               <div class="box_brown">
@@ -424,8 +428,8 @@
               </div>
             </div>
 
-           
-        
+
+
             <div class="form-group col-sm-12">
               <h6>Resúmen en español</h6>
               <div class="box_brown">
@@ -504,7 +508,7 @@
                 </button>
               </div>
             </div>
-           
+
 
           </div>
         </tab>
@@ -608,8 +612,8 @@
               </div>
             </div>
 
-           
-        
+
+
             <div class="form-group col-sm-12">
               <h6>Resúmen en español</h6>
               <div class="box_brown">
@@ -688,7 +692,7 @@
                 </button>
               </div>
             </div>
-           
+
 
           </div>
         </tab>

@@ -6,6 +6,7 @@ export const END_POINTS = {
 
     lstgeneral: {
         actividad: '/lstgeneral/lstactividad',
+        recurso: '/lstgeneral/lstrecurso'
     },
     token:{
       oauth:'/oauth/token'

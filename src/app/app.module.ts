@@ -10,7 +10,6 @@ import { MenuComponent } from './menu/menu.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -31,6 +30,11 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 
 import { NgxSpinnerModule } from "ngx-spinner";
 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { OauthInterceptorService } from './services/oauth-interceptor.service';
+import { LstgeneralService } from './services/lstgeneral.service';
+import { TokenService } from './services/token.service';
+import { RecursoService } from './services/recurso.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +65,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgxSpinnerModule,
 
   ],
-  providers: [],
+  providers: [
+    TokenService,
+    LstgeneralService,
+    RecursoService,
+    { provide: HTTP_INTERCEPTORS, useClass: OauthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

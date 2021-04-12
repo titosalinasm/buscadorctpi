@@ -149,7 +149,7 @@ export class DataService<T> {
 
         const httpBoody = new URLSearchParams();
         httpBoody.append('username', 'appDSDRenovacion');
-        httpBoody.append('password', '$2a$10$$2a$10$YVqdOqpbTglvx3.MPFKAf.0L.u0GSFYQtdCpm8pmAfVxYJ9cB8Gmq');
+        httpBoody.append('password', '$2a$10$YVqdOqpbTglvx3.MPFKAf.0L.u0GSFYQtdCpm8pmAfVxYJ9cB8Gmq');
         httpBoody.append('grant_type', 'password');
         httpBoody.append('client_id', 'sel');
         httpBoody.append('client_secret', '$2a$10$0YL0Sl6U0IxPl5viuRyRZ.xGa4Va3tG0LcPv0sT8nHfotKngQMn2W');

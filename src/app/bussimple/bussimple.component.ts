@@ -1,7 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CountriesService } from '../services/countries.service';
+import { LstgeneralService } from '../services/lstgeneral.service';
+import { RecursoService } from '../services/recurso.service';
 
 @Component({
   selector: 'app-bussimple',
@@ -12,13 +14,8 @@ export class BussimpleComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  text: any[];
 
   results: any[];
-
-  cities: any[];
-
-  selectedCities: any[];
 
   orderForm: FormGroup;
   items: FormArray;
@@ -26,19 +23,20 @@ export class BussimpleComponent implements OnInit {
   stateOptions: any[];
   value1: string = "off";
 
+  //real
+  lstActividad: any[];
+  lstActividadSelect: any[];
+  vcNombreCientificoSelect: any;
+
 
   constructor(private modalService: BsModalService,
-              private formBuilder: FormBuilder ) {
+              private formBuilder: FormBuilder,
+              private _lstgeneralService : LstgeneralService,
+              private _recursoService:  RecursoService) {
 
-    this.cities = [
-      {name: 'Abortivo', code: 'NY'},
-      {name: 'Adicciones', code: 'RM'},
-      {name: 'Amebicida', code: 'LDN'},
-      {name: 'Anorexia', code: 'IST'},
-      {name: 'Alimento', code: 'PRS'}
-  ];
+              this.doCargarLstGenerales();
 
-  this.stateOptions = [{label: 'Y', value: 'Y'}, {label: 'O', value: 'O'}];
+              this.stateOptions = [{label: 'Y', value: 'Y'}, {label: 'O', value: 'O'}];
 
   }
 
@@ -50,21 +48,43 @@ export class BussimpleComponent implements OnInit {
     });
 
 
+
   }
 
-  search(event) {
-    this.results=[
-      {"name":"Lepidium 1"},
-      {"name":"Lepidium 2"},
-      {"name":"Lepidium 3"},
-      {"name":"Lepidium 4"},
-      {"name":"Lepidium 5"}
-  ];
+  doCargarLstGenerales(){
+      let objJSON={};
+      this._lstgeneralService.getWithPost$(objJSON).subscribe(
+        resp=>{
+           // console.log(JSON.stringify(resp));
+              this.lstActividad=resp.lstActividad;
+        },
+        error=>{
 
-    // this.countrylookupservice.getCountries().then(data => {
-      // this.results = data;
-  // });
-}
+        }
+      );
+  }
+
+  doSeleccionar(){
+   console.log(JSON.stringify(this.lstActividadSelect));
+  }
+
+  doSugerencia(event : any){
+    // console.log(JSON.stringify(event.query));
+    let objJSON={
+      vcNombreCientifico: event.query
+    };
+    this._recursoService.getWithPost$(objJSON).subscribe(
+      resp=>{
+         console.log(JSON.stringify(resp));
+         this.results=resp.lsRecurso;
+            // this.lstActividad=resp.lstActividad;
+      },
+      error=>{
+
+      }
+    );
+  }
+
 
 addItem(): void {
   this.items = this.orderForm.get('items') as FormArray;

@@ -34,9 +34,8 @@ export class InicioComponent   implements OnInit {
   }
 
   obtenerToken() {
-    let _token = sessionStorage.getItem('access_token');
+    // let _token = sessionStorage.getItem('access_token');
     this._spinner.show();
-    if (!_token) {
       this.tokenService.obtenerToken$().subscribe(
         resp => {
           this._spinner.hide();
@@ -48,7 +47,7 @@ export class InicioComponent   implements OnInit {
           this._spinner.hide();
         },
       );
-    }
+
   }
 
 }
