@@ -25,14 +25,15 @@
                     <label>Nombre científico</label>
                     <div>
                       <p-autoComplete
-                       [(ngModel)]="vcNombreCientificoSelect"
-                       [suggestions]="results"
+                       [(ngModel)]="vcRecurso"
+                       [suggestions]="lstRecursos"
                        field="vcNombreCientifico"
                        (completeMethod)="doSugerencia($event)"
                        [style]="{'width':'100%'}"
                        [inputStyle]="{'width':'100%'}"
                        [minLength]="3"
-                        styleClass="wid100"></p-autoComplete>
+                        styleClass="wid100"
+                        ></p-autoComplete>
                     </div>
                     <small class="form-text text-muted">Se búscará en todas las colecciones.</small>
                   </div>
@@ -45,7 +46,7 @@
                 <div class="form-group">
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="float:right;" (click)="doSeleccionar()">Buscar</button>
+                <button type="submit" class="btn btn-primary" style="float:right;" (click)="doBuscarTodaslasColecciones()">Buscar</button>
                 <button type="button" class="btn btn-outline-danger" style="float:right;margin-right: 5px;">Limpiar
                 </button>
               </div>
@@ -57,7 +58,7 @@
 
                   <div class="row">
                     <div class="col-sm mt-2 mb-3">
-                      <div class="row">
+                      <!-- <div class="row">
                         <div class="col-sm-6">
                           <h5>Se encontrarón 3 resultados.</h5>
                         </div>
@@ -65,106 +66,53 @@
                           <button type="button" class="btn btn-outline-primary"
                             style="float:right;margin-bottom: 5px;">Imprimir </button>
                         </div>
-                      </div>
+                      </div> -->
 
-
-                      <table class="table table-sm">
-                        <thead>
-                          <tr>
-                            <th scope="col">Nro</th>
-                            <th scope="col">Fuente</th>
-                            <th scope="col">Recursos</th>
-                            <th scope="col">Actividad</th>
-                            <th scope="col">Solicitante/Pueblo Indigena/Autor</th>
-                            <th scope="col">Nro. Registro / Nro. Publicación</th>
-                            <th scope="col">Fecha Publicación / Presentación</th>
-                            <th scope="col">Detalle</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="8">
-                                  <table class="table">
-                                    <tbody>
-                                      <th rowspan="3" scope="row">1</th>
-                                      <td rowspan="3" >PATENTE</td>
-                                      <td>Lepidium meyenii Walp. </td>
-                                      <td>Osteoporosis</td>
-                                      <td>Maritsabel Antonio</td>
-                                      <td>2801 / 1234567 </td>
-                                      <td>11/01/2021 </td>
-                                      <td><button class="btn" (click)="openModal(md_conocimiento_tradicional)"><i class="fa fa-search"></i></button></td>
-                                      <tr>
-                                        <th >Resumen:</th>
-                                        <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td colspan="8">
-                                  <table class="table">
-                                    <tbody>
-                                      <th rowspan="3" scope="row">2</th>
-                                      <td rowspan="3" >Conocimiento tradicional</td>
-                                      <td>Lepidium meyenii Walp. </td>
-                                      <td>Osteoporosis</td>
-                                      <td>Maritsabel Antonio</td>
-                                      <td>2801 / 1234567 </td>
-                                      <td>11/01/2021 </td>
-                                      <td><button class="btn" (click)="openModal(md_conocimiento_tradicional)"><i class="fa fa-search"></i></button></td>
-                                      <tr>
-                                        <th >Resumen:</th>
-                                        <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td colspan="8">
-                                  <table class="table">
-                                    <tbody>
-                                      <th rowspan="3" scope="row">3</th>
-                                      <td rowspan="3" >Informacion tecnica</td>
-                                      <td>Lepidium meyenii Walp. </td>
-                                      <td>Osteoporosis</td>
-                                      <td>Maritsabel Antonio</td>
-                                      <td>2801 / 1234567 </td>
-                                      <td>11/01/2021 </td>
-                                      <td><button class="btn" (click)="openModal(md_conocimiento_tecnico)"><i class="fa fa-search"></i></button></td>
-                                      <tr>
-                                        <th >Resumen:</th>
-                                        <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-
-                        </tbody>
-                      </table>
-                      <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                          </li>
-                        </ul>
-                      </nav>
+                      <div class="card">
+                        <!-- <h5>Programmatic Control</h5> -->
+                        <!-- <div class="p-mb-3">
+                            <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+                            <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+                            <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+                        </div> -->
+                        <p-table [value]="lstTodasColecciones" [paginator]="true" [rows]="rows"
+                            [showCurrentPageReport]="true" [(first)]="first"
+                            currentPageReportTemplate="Mostrando {first} de {last} - {totalRecords} registros"
+                            [rowsPerPageOptions]="[10,25,50]"
+                            styleClass="p-datatable-responsive-todos-colecciones"
+                            >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Fuente</th>
+                                    <th>Recurso</th>
+                                    <th>Actividad</th>
+                                    <th>Solicitante</th>
+                                    <th>Nro. Registro</th>
+                                    <th>Fecha Publicación</th>
+                                    <th><button type="button" class="btn btn-outline-primary"
+                                      style="float:right;margin-bottom: 5px;"><i class="fa fa-file-excel-o"></i> Imprimir </button></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                                <tr>
+                                    <td><b>{{item.vcFuente}}</b></td>
+                                    <td><div [innerHTML]="item.vcRecurso"></div></td>
+                                    <td>{{item.vcActividad}}</td>
+                                    <td>{{item.vcColumna3}}</td>
+                                    <td>{{item.vcNumero}}</td>
+                                    <td>{{item.vcFecha}}</td>
+                                    <td><button class="btn" ><i class="fa fa-outdent"  (click)="openModal(md_patentes)"></i></button></td>
+                                </tr>
+                                <tr >
+                                  <td><b>Resumen:</b></td>
+                                    <td colspan="5"><div [innerHTML]="item.vcResumen"></div></td>
+                                    <td></td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>​
                     </div>
                   </div>
-
-
-
                 </tab>
 
               </tabset>
@@ -189,8 +137,32 @@
     </button>
   </div>
   <div class="modal-body">
+    <h5>Programmatic</h5>
+<div class="p-py-3">
+    <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"></p-button>
+    <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"></p-button>
+    <p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"></p-button>
+</div>
 
-    <div>
+<p-accordion>
+    <p-accordionTab header="Header I" [(selected)]="activeState[0]">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </p-accordionTab>
+    <p-accordionTab header="Header II" [(selected)]="activeState[1]">
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+    </p-accordionTab>
+    <p-accordionTab header="Header III" [(selected)]="activeState[2]">
+        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+    </p-accordionTab>
+</p-accordion>
+
+    <!-- <div>
       <tabset>
         <tab heading="Detalle">
 
@@ -366,7 +338,7 @@
 
       </tabset>
     </div>
-
+ -->
 
   </div>
 </ng-template>

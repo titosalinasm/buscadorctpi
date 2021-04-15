@@ -8,6 +8,9 @@ export const END_POINTS = {
         actividad: '/lstgeneral/lstactividad',
         recurso: '/lstgeneral/lstrecurso'
     },
+    busqueda :{
+      lsttodos:'/busqueda/lsttodos'
+    },
     token:{
       oauth:'/oauth/token'
     },

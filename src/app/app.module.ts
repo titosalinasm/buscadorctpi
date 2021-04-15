@@ -29,12 +29,16 @@ import {InputTextModule} from 'primeng/inputtext';
 import {SelectButtonModule} from 'primeng/selectbutton';
 
 import { NgxSpinnerModule } from "ngx-spinner";
+import {TableModule} from 'primeng/table';
+import {ButtonModule} from 'primeng/button';
+import {AccordionModule} from 'primeng/accordion';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OauthInterceptorService } from './services/oauth-interceptor.service';
 import { LstgeneralService } from './services/lstgeneral.service';
 import { TokenService } from './services/token.service';
 import { RecursoService } from './services/recurso.service';
+import { TodoscoleccionesService } from './services/todoscolecciones.service';
 
 @NgModule({
   declarations: [
@@ -63,12 +67,15 @@ import { RecursoService } from './services/recurso.service';
     InputTextModule,
     SelectButtonModule,
     NgxSpinnerModule,
-
+    TableModule,
+    ButtonModule,
+    AccordionModule,
   ],
   providers: [
     TokenService,
     LstgeneralService,
     RecursoService,
+    TodoscoleccionesService,
     { provide: HTTP_INTERCEPTORS, useClass: OauthInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
