@@ -23,3 +23,7 @@ border-radius: 5px 5px 5px 5px;
 .mark {
     color:#007bff;
   }
+
+.row_table_bottom{
+    border-bottom: 1px solid #d6d8db;
+  }

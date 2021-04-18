@@ -21,273 +21,220 @@
                   <tab heading="Patentes">
                     <div class="row">
                         <div class="col-sm mt-2 mb-3">
-                            <div class="form-row margin_top_10">
-                                <div class="form-group col-sm-6">
-                                    <h6>Nombre científico</h6>
-                                    <div>
-                                      <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="name" placeholder="Nombre Cientifico"
-                                        (completeMethod)="search($event)" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
-                                        styleClass="wid100"></p-autoComplete>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <h6>Nombre común(Resumen)</h6>
-                                    <input type="text" class="form-control"  placeholder="Resumen">
-                                </div>
-                            </div>
-                            <div class="form-row margin_top_10">
-                                <div class="form-group col-sm-6">
-                                    <h6>Título de patente</h6>
-                                    <input type="text" class="form-control"  placeholder="Título de patente">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <h6>Solicitante</h6>
-                                    <input type="text" class="form-control"  placeholder="Nombre del solicitante">
+                          <div class="form-row margin_top_10">
+                            <div class="form-group col-sm-6">
+                                <h6>Nombre científico</h6>
+                                <div>
+                                  <p-autoComplete
+                                    [(ngModel)]="vcRecursoPatenteSelect"
+                                    [suggestions]="lstRecursoPatente"
+                                    field="vcNombreCientifico"
+                                    (completeMethod)="doSugerenciaPatentes($event)"
+                                    [style]="{'width':'100%'}"
+                                    [inputStyle]="{'width':'100%'}"
+                                    [minLength]="3"
+                                      styleClass="wid100"
+                                      ></p-autoComplete>
                                 </div>
                             </div>
-                            <div class="form-row margin_top_10">
-                                <div class="form-group col-sm-6">
-                                    <h6>Número de publicacion</h6>
-                                    <input type="text" class="form-control"   placeholder="Número de publicación">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <h6>Reivindicacion</h6>
-                                    <input type="text" class="form-control"   placeholder="Ejemplo: Reivindicacion">
-                                </div>
+                            <div class="form-group col-sm-6">
+                                <h6>Actividad farmacológica</h6>
+                                <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="lstActividadPatentes" [(ngModel)]="lstActividadPatentesSelect" optionLabel="vcActividad" [style]="{'width':'100%'}" > </p-multiSelect>
                             </div>
-
-                            <div class="form-row margin_top_10">
-                                <div class="form-group col-sm-6">
-                                    <h6>Actividad farmacológica</h6>
-                                    <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'100%'}"  > </p-multiSelect>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                  <h6>CIP</h6>
-                                  <input type="text" class="form-control"   placeholder="Ejemplo: CIP">
-                              </div>
+                        </div>
+                        <form [formGroup]="frmPatentes" autocomplete="off">
+                        <div class="form-row margin_top_10">
+                            <div class="form-group col-sm-6">
+                                <h6>Título de patente</h6>
+                                <input type="text" formControlName="vcTituloPatente"  class="form-control"  placeholder="Título de patente">
                             </div>
-
-
-
-                              <button type="submit" class="btn btn-primary" style="float:right;">Buscar</button>
+                            <div class="form-group col-sm-6">
+                              <h6>Número de publicacion</h6>
+                              <input type="text" formControlName="vcNumeroPublicacion"  class="form-control"   placeholder="Número de publicación">
                           </div>
                         </div>
+                        <div class="form-row margin_top_10">
+                          <div class="form-group col-sm-6">
+                            <h6>CIP</h6>
+                            <input type="text" formControlName="vcCip" class="form-control"   placeholder="Ejemplo: CIP">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <h6>Reivindicacion</h6>
+                                <input type="text" formControlName="vcReinvindicacion" class="form-control"   placeholder="Ejemplo: Reivindicacion">
+                            </div>
+                        </div>
+
+                        <div class="form-row margin_top_10">
+                          <div class="form-group col-sm-12">
+                          <h6>Resumen</h6>
+                          <input type="text" formControlName="vcResumen"  class="form-control"  placeholder="Descripción">
+                          </div>
+                        </div>
+                      </form>
+                      <button type="submit" (click)="doBuscarPatente()" class="btn btn-primary" style="float:right;">Buscar</button>
+                      <button type="button"  class="btn btn-outline-danger" style="float:right;margin-right: 5px;">Limpiar
+                      </button>
+                    </div>
+                    </div>
                         <div class="row">
                             <div class="col-sm mt-2 mb-3">
-                                <h5>Se encontrarón 4 resultados para patentes.</h5>
-                                <table class="table table-sm">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">Nro</th>
-                                      <th scope="col">Fuente</th>
-                                      <th scope="col">Recursos</th>
-                                      <th scope="col">Actividad</th>
-                                      <th scope="col">Solicitante/Pueblo Indigena/Autor</th>
-                                      <th scope="col">Nro. Registro / Nro. Publicación</th>
-                                      <th scope="col">Fecha Publicación / Presentación</th>
-                                      <th scope="col">Detalle</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td colspan="8">
-                                        <table class="table">
-                                          <tbody>
-                                            <th rowspan="3" scope="row">1</th>
-                                            <td rowspan="3" >PATENTE</td>
-                                            <td>Lepidium meyenii Walp. </td>
-                                            <td>Osteoporosis</td>
-                                            <td>Maritsabel Antonio</td>
-                                            <td>2801 / 1234567 </td>
-                                            <td>11/01/2021 </td>
-                                            <td><button class="btn" (click)="openModal(md_patentes)"><i class="fa fa-search"></i></button></td>
-                                            <tr>
-                                              <th >Resumen:</th>
-                                              <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td colspan="8">
-                                        <table class="table">
-                                          <tbody>
-                                            <th rowspan="3" scope="row">2</th>
-                                            <td rowspan="3" >PATENTE</td>
-                                            <td>Lepidium meyenii Walp. </td>
-                                            <td>Osteoporosis</td>
-                                            <td>Maritsabel Antonio</td>
-                                            <td>2801 / 1234567 </td>
-                                            <td>11/01/2021 </td>
-                                            <td><button class="btn" (click)="openModal(md_patentes)"><i class="fa fa-outdent"></i></button></td>
-                                            <tr>
-                                              <th >Resumen:</th>
-                                              <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td colspan="8">
-                                        <table class="table">
-                                          <tbody>
-                                            <th rowspan="3" scope="row">3</th>
-                                            <td rowspan="3" >PATENTE</td>
-                                            <td>Lepidium meyenii Walp. </td>
-                                            <td>Osteoporosis</td>
-                                            <td>Maritsabel Antonio</td>
-                                            <td>2801 / 1234567 </td>
-                                            <td>11/01/2021 </td>
-                                            <td><button class="btn" (click)="openModal(md_patentes)"><i class="fa fa-search"></i></button></td>
-                                            <tr>
-                                              <th >Resumen:</th>
-                                              <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                                  <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                      <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                      </li>
-                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                      <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                      </li>
-                                    </ul>
-                                  </nav>
+                              <p-table [value]="lstResultadoPatente" [paginator]="true" [rows]="rowsPatente"
+                              [showCurrentPageReport]="true" [(first)]="firstPatente"
+                              currentPageReportTemplate="Mostrando {first} de {last} - {totalRecords} registros"
+                              [rowsPerPageOptions]="[10,25,50, 100,500, 1000, 2000, 5000, 10000]"
+                              styleClass="p-datatable-responsive-todos-colecciones"
+                              >
+                              <ng-template pTemplate="header">
+                                  <tr>
+                                      <th>Fuente</th>
+                                      <th>Recurso</th>
+                                      <th>Actividad</th>
+                                      <th>Solicitante</th>
+                                      <th>Nro. Registro</th>
+                                      <th>Fecha Publicación</th>
+                                      <th><button type="button" class="btn btn-outline-primary"
+                                        style="float:right;margin-bottom: 5px;"><i class="fa fa-file-excel-o"></i></button></th>
+                                  </tr>
+                              </ng-template>
+                              <ng-template pTemplate="body" let-item>
+                                  <tr>
+                                      <td><b>{{item.vcFuente}}</b></td>
+                                      <td><div [innerHTML]="item.vcRecurso"></div></td>
+                                      <td>{{item.vcActividad}}</td>
+                                      <td>{{item.vcColumna3}}</td>
+                                      <td>{{item.vcNumero}}</td>
+                                      <td>{{item.vcFecha}}</td>
+                                      <td><button class="btn" style="float:right" (click)="doVerDetalle(item.nuIdTipoRegistro, item.nuIdRegistro, md_patentes, md_conocimiento)"
+                                         ><i class="fa fa-outdent"></i></button></td>
+                                  </tr>
+                                  <tr >
+                                    <td><b>Resumen:</b></td>
+                                      <td colspan="5"><div [innerHTML]="item.vcResumen"></div></td>
+                                      <td></td>
+                                  </tr>
+                              </ng-template>
+                          </p-table>
                             </div>
                           </div>
 
 
                   </tab>
                   <tab heading="Informacion documental">
-
                     <div class="row">
                         <div class="col-sm mt-2 mb-3">
+                          <form [formGroup]="frmConocimientos1" autocomplete="off">
+                          <div class="form-row margin_top_10">
+
+                              <div class="form-group col-sm-12">
+                                  <h6>Tipo de conocimiento</h6>
+                                  <select class="custom-select" id="nu-id-clase"
+                                  formControlName="nuIdTipoConocimiento">
+                                  <option value="" disabled selected hidden>Seleccionar...</option>
+                                  <option *ngFor="let item of lstTipoConocimiento; let row = index" [ngValue]="item.nuIdTipoConocimiento">
+                                      {{item.vcIdTipoConocimiento}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                        </form>
                             <div class="form-row margin_top_10">
-                                <div class="form-group col-sm-12">
-                                    <h6>Tipo de conocimiento</h6>
-                                      <select class="form-control" aria-label=".form-select-lg example"  (change)="doComboTipoConocimiento()">
-                                        <!-- <option selected>Seleccione tipo de conocimiento</option> -->
-                                        <option value="1" selected>Conocimiento tradicional</option>
-                                        <option value="2" >Conocimiento técnico (Información tecnica)</option>
-                                      </select>
-                                </div>
+
                                 <div class="form-group col-sm-6">
                                     <h6>Nombre científico</h6>
                                     <div>
-                                      <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="name" placeholder="Nombre Cientifico"
-                                        (completeMethod)="search($event)" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
-                                        styleClass="wid100"></p-autoComplete>
+                                      <p-autoComplete
+                                        [(ngModel)]="vcRecursoConocimientoSelect"
+                                        [suggestions]="lstRecursoConocimiento"
+                                        field="vcNombreCientifico"
+                                        (completeMethod)="doSugerenciaConocimiento($event)"
+                                        [style]="{'width':'100%'}"
+                                        [inputStyle]="{'width':'100%'}"
+                                        [minLength]="3"
+                                          styleClass="wid100"
+                                          ></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <h6>Descripcion del conocimiento</h6>
-                                    <input type="text" class="form-control"  placeholder="Resumen">
+                                  <h6>Actividad</h6>
+                                <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="lstActividadConocimiento" [(ngModel)]="lstActividadConocimientoSelect" optionLabel="vcActividad" [style]="{'width':'100%'}" > </p-multiSelect>
                                 </div>
                             </div>
-
-                            <div class="form-row margin_top_10" *ngIf="!blShowTT">
+                            <form [formGroup]="frmConocimientos2" autocomplete="off">
+                            <div class="form-row margin_top_10" *ngIf="frmConocimientos1.value.nuIdTipoConocimiento==1">
                                 <div class="form-group col-sm-6">
                                   <h6>Nombre común</h6>
-                                  <input type="text" class="form-control"  placeholder="Nombre común">
+                                  <input type="text"  formControlName="vcNombreComun" class="form-control"  placeholder="Nombre común">
                                 </div>
 
                                 <div class="form-group col-sm-6">
                                   <h6>Tipo de bibliografia</h6>
-                                    <select class="form-control" aria-label=".form-select-lg example">
-                                      <option selected>Seleccione tipo</option>
-                                      <option value="1">Libro</option>
-                                      <option value="2">Articulo Revista</option>
-                                      <option value="2">Articulo enciclopedia</option>
-                                      <option value="2">Periodistico</option>
-                                    </select>
+                                  <select class="custom-select" id="nu-id-clase"
+                                  formControlName="nuIdTipoBibliografia">
+                                  <option value="" disabled selected hidden>Seleccionar...</option>
+                                  <option *ngFor="let item of lstTipoBibliografia; let row = index" [ngValue]="item.nuIdTipoBibliografia">
+                                      {{item.vcTipoBibliografia}}</option>
+                                  </select>
                               </div>
                             </div>
 
                             <div class="form-row margin_top_10">
-                              <div class="form-group col-sm-6" *ngIf="!blShowTT">
+                              <div class="form-group col-sm-6" *ngIf="frmConocimientos1.value.nuIdTipoConocimiento==1">
                                 <h6>Pueblo</h6>
-                                  <select class="form-control" aria-label=".form-select-lg example">
-                                    <option selected>Seleccione pueblo</option>
-                                    <option value="1">Ashaninka</option>
-                                    <option value="2">Chitonahua</option>
-                                    <option value="2">Jaqaru</option>
-                                    <option value="2">Kichwa</option>
-                                    <option value="2">Madija</option>
-                                  </select>
+                                <select class="custom-select" id="nu-id-clase"
+                                formControlName="nuIdPueblo">
+                                <option value="" disabled selected hidden>Seleccionar...</option>
+                                <option *ngFor="let item of lstPueblo; let row = index" [ngValue]="item.nuIdPueblo">
+                                    {{item.vcPueblo}}</option>
+                                </select>
                               </div>
                               <div class="form-group col-sm-6">
-                                <h6>Actividad</h6>
-                                <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'100%'}" > </p-multiSelect>
+                                <h6>Descripcion del conocimiento</h6>
+                                    <input type="text" formControlName="vcDescripcion" class="form-control"  placeholder="Resumen">
                             </div>
                               </div>
-
-                              <button type="submit" class="btn btn-primary" style="float:right;">Buscar</button>
+                              </form>
+                              <button type="submit"  (click)="doBuscarConocimiento()" class="btn btn-primary" style="float:right;">Buscar</button>
+                              <button type="button"  class="btn btn-outline-danger" style="float:right;margin-right: 5px;">Limpiar
+                              </button>
                           </div>
                         </div>
                         <div class="row">
                             <div class="col-sm mt-2 mb-3">
-                                <h5>Se encontrarón 4 resultados para conocimiento.</h5>
-                                <table class="table table-sm">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">Nro</th>
-                                      <th scope="col">Fuente</th>
-                                      <th scope="col">Recursos</th>
-                                      <th scope="col">Actividad</th>
-                                      <th scope="col">Solicitante/Pueblo Indigena/Autor</th>
-                                      <th scope="col">Nro. Registro / Nro. Publicación</th>
-                                      <th scope="col">Fecha Publicación / Presentación</th>
-                                      <th scope="col">Detalle</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td colspan="8">
-                                        <table class="table">
-                                          <tbody>
-                                            <th rowspan="3" scope="row">1</th>
-                                            <td rowspan="3" >PATENTE</td>
-                                            <td>Lepidium meyenii Walp. </td>
-                                            <td>Osteoporosis</td>
-                                            <td>Maritsabel Antonio</td>
-                                            <td>2801 / 1234567 </td>
-                                            <td>11/01/2021 </td>
-                                            <td><button class="btn" (click)="openModal(md_conocimiento_tradicional)"><i class="fa fa-search"></i></button></td>
-                                            <tr>
-                                              <th >Resumen:</th>
-                                              <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </td>
-                                    </tr>
-
-                                  </tbody>
-                                </table>
-                                  <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                      <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                      </li>
-                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                      <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                      </li>
-                                    </ul>
-                                  </nav>
+                              <p-table [value]="lstResultadoConocimiento" [paginator]="true" [rows]="rowsConocimiento"
+                              [showCurrentPageReport]="true" [(first)]="firstConocimiento"
+                              currentPageReportTemplate="Mostrando {first} de {last} - {totalRecords} registros"
+                              [rowsPerPageOptions]="[10,25,50, 100,500, 1000, 2000, 5000, 10000]"
+                              styleClass="p-datatable-responsive-todos-colecciones"
+                              >
+                              <ng-template pTemplate="header">
+                                  <tr>
+                                      <th>Fuente</th>
+                                      <th>Recurso</th>
+                                      <th>Actividad</th>
+                                      <th>Solicitante</th>
+                                      <th>Nro. Registro</th>
+                                      <th>Fecha Publicación</th>
+                                      <th><button type="button" class="btn btn-outline-primary"
+                                        style="float:right;margin-bottom: 5px;"><i class="fa fa-file-excel-o"></i></button></th>
+                                  </tr>
+                              </ng-template>
+                              <ng-template pTemplate="body" let-item>
+                                  <tr>
+                                      <td><b>{{item.vcFuente}}</b></td>
+                                      <td><div [innerHTML]="item.vcRecurso"></div></td>
+                                      <td>{{item.vcActividad}}</td>
+                                      <td>{{item.vcColumna3}}</td>
+                                      <td>{{item.vcNumero}}</td>
+                                      <td>{{item.vcFecha}}</td>
+                                      <td><button class="btn" style="float:right" (click)="doVerDetalle(item.nuIdTipoRegistro, item.nuIdRegistro, md_patentes, md_conocimiento)"
+                                         ><i class="fa fa-outdent"></i></button></td>
+                                  </tr>
+                                  <tr >
+                                    <td><b>Resumen:</b></td>
+                                      <td colspan="5"><div [innerHTML]="item.vcResumen"></div></td>
+                                      <td></td>
+                                  </tr>
+                              </ng-template>
+                          </p-table>
                             </div>
                           </div>
 
@@ -299,59 +246,308 @@
                           <div class="form-group col-sm-6">
                             <label>Nombre científico</label>
                             <div>
-                              <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="name"
-                                (completeMethod)="search($event)" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
-                                styleClass="wid100"></p-autoComplete>
+                              <p-autoComplete
+                                        [(ngModel)]="vcRecursoAvanzadoSelect"
+                                        [suggestions]="lstRecursoAvanzado"
+                                        field="vcNombreCientifico"
+                                        (completeMethod)="doSugerenciaAvanzado($event)"
+                                        [style]="{'width':'100%'}"
+                                        [inputStyle]="{'width':'100%'}"
+                                        [minLength]="3"
+                                          styleClass="wid100"
+                                          ></p-autoComplete>
                             </div>
                             <small class="form-text text-muted">Se búscará en todas las colecciones.</small>
                           </div>
                           <div class="form-group col-sm-6">
                             <label>Actividad farmacológica</label>
-                            <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'100%'}" > </p-multiSelect>
+                            <p-multiSelect  defaultLabel="Seleccionar actividad" [options]="lstActividadAvanzado" [(ngModel)]="lstActividadAvanzadoSelect" optionLabel="vcActividad" [style]="{'width':'100%'}" > </p-multiSelect>
                           </div>
-                          <div class="form-group col-sm-12">
-                            <form [formGroup]="orderForm">
-                              <div
-                                formArrayName="items"
-                                *ngFor="let
-                                item of orderForm.get('items')['controls']; let i = index;"
-                              >
+
+                          <form [formGroup]="frmAgregarDatosLogicos" autocomplete="off" style="width: 100%;">
+                          <div class="form-group col-sm-12" *ngIf="blInputShow1">
                               <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
-                                <div [formGroupName]="i">
                                   <div class="form-row">
+                                    <div class="form-group  col-sm-10">
+                                      <input  class="form-control" formControlName="valor1"  placeholder="Ingrese dato">
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                      <div class="btn-group" role="group" style="float: right;">
+                                        <label class="btn btn-outline-primary"
+                                        [style.background-color]="blRadioButton1=='AND'?'#007bff':''"
+                                        [style.color]="blRadioButton1=='AND'?'#ffffff':''"
+                                        (click)="doBlInput1('AND')"
+                                        >Y</label>
+                                        <label class="btn btn-outline-primary"
+                                        [style.background-color]="blRadioButton1=='OR'?'#007bff':''"
+                                        [style.color]="blRadioButton1=='OR'?'#ffffff':''"
+                                        (click)="doBlInput1('OR')"
+                                        >O</label>
+
+                                        <label class="btn btn-outline-danger"
+                                        style="margin-left: 20px;"
+                                        (click)="doAgregar2()"
+                                        *ngIf="!blInputShow2"
+                                        >+</label>
+                                      </div>
+                                      </div>
+                                  </div>
+                          </div>
+                          <div class="form-group col-sm-12" *ngIf="blInputShow2">
+                            <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                                <div class="form-row">
                                   <div class="form-group  col-sm-10">
-                                    <input formControlName="name"  class="form-control"  placeholder="Ingrese dato">
+                                    <input  class="form-control" formControlName="valor2"   placeholder="Ingrese dato">
                                   </div>
                                   <div class="form-group col-sm-2">
-                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="float: right;">
-                                      <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked> -->
-                                      <label class="btn btn-outline-primary" for="btnradio1"  (click)="addItem()">Y</label>
+                                    <div class="btn-group" role="group" style="float: right;">
+                                      <label class="btn btn-outline-primary"
+                                      [style.background-color]="blRadioButton2=='AND'?'#007bff':''"
+                                      [style.color]="blRadioButton2=='AND'?'#ffffff':''"
+                                      (click)="doBlInput2('AND')"
+                                      >Y</label>
+                                      <label class="btn btn-outline-primary"
+                                      [style.background-color]="blRadioButton2=='OR'?'#007bff':''"
+                                      [style.color]="blRadioButton2=='OR'?'#ffffff':''"
+                                      (click)="doBlInput2('OR')"
+                                      >O</label>
 
-                                      <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"> -->
-                                      <!-- <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label> -->
-
-                                      <!-- <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"> -->
-                                      <label class="btn btn-outline-primary" for="btnradio3"  (click)="addItem()">O</label>
+                                      <label class="btn btn-outline-danger"
+                                      style="margin-left: 20px;"
+                                      (click)="doAgregar3()"
+                                      *ngIf="!blInputShow3"
+                                      >+</label>
                                     </div>
-                                    <!-- <p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton> -->
-                                  </div>
-                                  </div>
+                                    </div>
                                 </div>
+                        </div>
+                        <div class="form-group col-sm-12" *ngIf="blInputShow3">
+                          <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                              <div class="form-row">
+                                <div class="form-group  col-sm-10">
+                                  <input  class="form-control"  formControlName="valor3"  placeholder="Ingrese dato">
+                                </div>
+                                <div class="form-group col-sm-2">
+                                  <div class="btn-group" role="group" style="float: right;">
+                                    <label class="btn btn-outline-primary"
+                                    [style.background-color]="blRadioButton3=='AND'?'#007bff':''"
+                                    [style.color]="blRadioButton3=='AND'?'#ffffff':''"
+                                    (click)="doBlInput3('AND')"
+                                    >Y</label>
+                                    <label class="btn btn-outline-primary"
+                                    [style.background-color]="blRadioButton3=='OR'?'#007bff':''"
+                                    [style.color]="blRadioButton3=='OR'?'#ffffff':''"
+                                    (click)="doBlInput3('OR')"
+                                    >O</label>
 
+                                    <label class="btn btn-outline-danger"
+                                    style="margin-left: 20px;"
+                                    (click)="doAgregar4()"
+                                    *ngIf="!blInputShow4"
+                                    >+</label>
+                                  </div>
+                                  </div>
                               </div>
-                              <!-- <button type="button" (click)="addItem()" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i></button> -->
-                            </form>
+                      </div>
+                      <div class="form-group col-sm-12" *ngIf="blInputShow4">
+                        <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                            <div class="form-row">
+                              <div class="form-group  col-sm-10">
+                                <input  class="form-control" formControlName="valor4"   placeholder="Ingrese dato">
+                              </div>
+                              <div class="form-group col-sm-2">
+                                <div class="btn-group" role="group" style="float: right;">
+                                  <label class="btn btn-outline-primary"
+                                  [style.background-color]="blRadioButton4=='AND'?'#007bff':''"
+                                  [style.color]="blRadioButton4=='AND'?'#ffffff':''"
+                                  (click)="doBlInput4('AND')"
+                                  >Y</label>
+                                  <label class="btn btn-outline-primary"
+                                  [style.background-color]="blRadioButton4=='OR'?'#007bff':''"
+                                  [style.color]="blRadioButton4=='OR'?'#ffffff':''"
+                                  (click)="doBlInput4('OR')"
+                                  >O</label>
+
+                                  <label class="btn btn-outline-danger"
+                                  style="margin-left: 20px;"
+                                  (click)="doAgregar5()"
+                                  *ngIf="!blInputShow5"
+                                  >+</label>
+                                </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="form-group col-sm-12" *ngIf="blInputShow5">
+                      <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                          <div class="form-row">
+                            <div class="form-group  col-sm-10">
+                              <input  class="form-control" formControlName="valor5"   placeholder="Ingrese dato">
+                            </div>
+                            <div class="form-group col-sm-2">
+                              <div class="btn-group" role="group" style="float: right;">
+                                <label class="btn btn-outline-primary"
+                                [style.background-color]="blRadioButton5=='AND'?'#007bff':''"
+                                [style.color]="blRadioButton5=='AND'?'#ffffff':''"
+                                (click)="doBlInput5('AND')"
+                                >Y</label>
+                                <label class="btn btn-outline-primary"
+                                [style.background-color]="blRadioButton5=='OR'?'#007bff':''"
+                                [style.color]="blRadioButton5=='OR'?'#ffffff':''"
+                                (click)="doBlInput5('OR')"
+                                >O</label>
+
+                                <label class="btn btn-outline-danger"
+                                style="margin-left: 20px;"
+                                (click)="doAgregar6()"
+                                *ngIf="!blInputShow6"
+                                >+</label>
+                              </div>
+                              </div>
+                          </div>
+                  </div>
+                  <div class="form-group col-sm-12" *ngIf="blInputShow6">
+                    <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                        <div class="form-row">
+                          <div class="form-group  col-sm-10">
+                            <input  class="form-control" formControlName="valor6"   placeholder="Ingrese dato">
+                          </div>
+                          <div class="form-group col-sm-2">
+                            <div class="btn-group" role="group" style="float: right;">
+                              <label class="btn btn-outline-primary"
+                              [style.background-color]="blRadioButton6=='AND'?'#007bff':''"
+                              [style.color]="blRadioButton6=='AND'?'#ffffff':''"
+                              (click)="doBlInput6('AND')"
+                              >Y</label>
+                              <label class="btn btn-outline-primary"
+                              [style.background-color]="blRadioButton6=='OR'?'#007bff':''"
+                              [style.color]="blRadioButton6=='OR'?'#ffffff':''"
+                              (click)="doBlInput6('OR')"
+                              >O</label>
+
+                              <label class="btn btn-outline-danger"
+                              style="margin-left: 20px;"
+                              (click)="doAgregar7()"
+                              *ngIf="!blInputShow7"
+                              >+</label>
+                            </div>
+                            </div>
                         </div>
-
-
-
-
+                </div>
+                <div class="form-group col-sm-12" *ngIf="blInputShow7">
+                  <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                      <div class="form-row">
+                        <div class="form-group  col-sm-10">
+                          <input  class="form-control" formControlName="valor7"   placeholder="Ingrese dato">
                         </div>
-                        <div class="form-group">
-                        </div>
+                        <div class="form-group col-sm-2">
+                          <div class="btn-group" role="group" style="float: right;">
+                            <label class="btn btn-outline-primary"
+                            [style.background-color]="blRadioButton7=='AND'?'#007bff':''"
+                            [style.color]="blRadioButton7=='AND'?'#ffffff':''"
+                            (click)="doBlInput7('AND')"
+                            >Y</label>
+                            <label class="btn btn-outline-primary"
+                            [style.background-color]="blRadioButton7=='OR'?'#007bff':''"
+                            [style.color]="blRadioButton7=='OR'?'#ffffff':''"
+                            (click)="doBlInput7('OR')"
+                            >O</label>
 
-                        <button type="submit" class="btn btn-primary" style="float:right;">Buscar</button>
-                        <button type="button" class="btn btn-outline-danger" style="float:right;margin-right: 5px;">Limpiar
+                            <label class="btn btn-outline-danger"
+                            style="margin-left: 20px;"
+                            (click)="doAgregar8()"
+                            *ngIf="!blInputShow8"
+                            >+</label>
+                          </div>
+                          </div>
+                      </div>
+              </div>
+              <div class="form-group col-sm-12" *ngIf="blInputShow8">
+                <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                    <div class="form-row">
+                      <div class="form-group  col-sm-10">
+                        <input  class="form-control" formControlName="valor8"   placeholder="Ingrese dato">
+                      </div>
+                      <div class="form-group col-sm-2">
+                        <div class="btn-group" role="group" style="float: right;">
+                          <label class="btn btn-outline-primary"
+                          [style.background-color]="blRadioButton8=='AND'?'#007bff':''"
+                          [style.color]="blRadioButton8=='AND'?'#ffffff':''"
+                          (click)="doBlInput8('AND')"
+                          >Y</label>
+                          <label class="btn btn-outline-primary"
+                          [style.background-color]="blRadioButton8=='OR'?'#007bff':''"
+                          [style.color]="blRadioButton8=='OR'?'#ffffff':''"
+                          (click)="doBlInput8('OR')"
+                          >O</label>
+
+                          <label class="btn btn-outline-danger"
+                          style="margin-left: 20px;"
+                          (click)="doAgregar9()"
+                          *ngIf="!blInputShow9"
+                          >+</label>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="form-group col-sm-12" *ngIf="blInputShow9">
+              <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                  <div class="form-row">
+                    <div class="form-group  col-sm-10">
+                      <input  class="form-control" formControlName="valor9"  placeholder="Ingrese dato">
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <div class="btn-group" role="group" style="float: right;">
+                        <label class="btn btn-outline-primary"
+                        [style.background-color]="blRadioButton9=='AND'?'#007bff':''"
+                        [style.color]="blRadioButton9=='AND'?'#ffffff':''"
+                        (click)="doBlInput9('AND')"
+                        >Y</label>
+                        <label class="btn btn-outline-primary"
+                        [style.background-color]="blRadioButton9=='OR'?'#007bff':''"
+                        [style.color]="blRadioButton9=='OR'?'#ffffff':''"
+                        (click)="doBlInput9('OR')"
+                        >O</label>
+
+                        <label class="btn btn-outline-danger"
+                        style="margin-left: 20px;"
+                        (click)="doAgregar10()"
+                        *ngIf="!blInputShow10"
+                        >+</label>
+                      </div>
+                      </div>
+                  </div>
+          </div>
+          <div class="form-group col-sm-12" *ngIf="blInputShow10">
+            <label>Descripción/Resumen/Reivindicaciones/Título/Nombre común</label>
+                <div class="form-row">
+                  <div class="form-group  col-sm-10">
+                    <input  class="form-control" formControlName="valor10"  placeholder="Ingrese dato">
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <div class="btn-group" role="group" style="float: right;">
+                      <label class="btn btn-outline-primary"
+                      [style.background-color]="blRadioButton10=='AND'?'#007bff':''"
+                      [style.color]="blRadioButton10=='AND'?'#ffffff':''"
+                      (click)="doBlInput10('AND')"
+                      >Y</label>
+                      <label class="btn btn-outline-primary"
+                      [style.background-color]="blRadioButton10=='OR'?'#007bff':''"
+                      [style.color]="blRadioButton10=='OR'?'#ffffff':''"
+                      (click)="doBlInput10('OR')"
+                      >O</label>
+
+                      <label class="btn btn-outline-danger"
+                      style="margin-left: 20px; display: none;"
+                      >+</label>
+                    </div>
+                    </div>
+                </div>
+        </div>
+      </form>
+                        </div>
+                        <button type="submit" (click)="doBuscarAvanzada()" class="btn btn-primary" style="float:right;">Buscar</button>
+                        <button type="button"  class="btn btn-outline-danger" style="float:right;margin-right: 5px;">Limpiar
                         </button>
                       </div>
                     </div>
@@ -362,109 +558,43 @@
 
                           <div class="row">
                             <div class="col-sm mt-2 mb-3">
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <h5>Se encontrarón 3 resultados.</h5>
-                                </div>
-                                <div class="col-sm-6">
-                                  <button type="button" class="btn btn-outline-primary"
-                                    style="float:right;margin-bottom: 5px;">Imprimir </button>
-                                </div>
-                              </div>
-
-
-                              <table class="table table-sm">
-                                <thead>
+                              <p-table [value]="lstResultadoAvanzado" [paginator]="true" [rows]="rowsAvanzado"
+                              [showCurrentPageReport]="true" [(first)]="firstAvanzado"
+                              currentPageReportTemplate="Mostrando {first} de {last} - {totalRecords} registros"
+                              [rowsPerPageOptions]="[10,25,50, 100,500, 1000, 2000, 5000, 10000]"
+                              styleClass="p-datatable-responsive-todos-colecciones"
+                              >
+                              <ng-template pTemplate="header">
                                   <tr>
-                                    <th scope="col">Nro</th>
-                                    <th scope="col">Fuente</th>
-                                    <th scope="col">Recursos</th>
-                                    <th scope="col">Actividad</th>
-                                    <th scope="col">Solicitante/Pueblo Indigena/Autor</th>
-                                    <th scope="col">Nro. Registro / Nro. Publicación</th>
-                                    <th scope="col">Fecha Publicación / Presentación</th>
-                                    <th scope="col">Detalle</th>
+                                      <th>Fuente</th>
+                                      <th>Recurso</th>
+                                      <th>Actividad</th>
+                                      <th>Solicitante</th>
+                                      <th>Nro. Registro</th>
+                                      <th>Fecha Publicación</th>
+                                      <th><button type="button" class="btn btn-outline-primary"
+                                        style="float:right;margin-bottom: 5px;"><i class="fa fa-file-excel-o"></i></button></th>
                                   </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="8">
-                                          <table class="table">
-                                            <tbody>
-                                              <th rowspan="3" scope="row">1</th>
-                                              <td rowspan="3" >PATENTE</td>
-                                              <td>Lepidium meyenii Walp. </td>
-                                              <td>Osteoporosis</td>
-                                              <td>Maritsabel Antonio</td>
-                                              <td>2801 / 1234567 </td>
-                                              <td>11/01/2021 </td>
-                                              <td><button class="btn" (click)="openModal(md_conocimiento_tradicional)"><i class="fa fa-search"></i></button></td>
-                                              <tr>
-                                                <th >Resumen:</th>
-                                                <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </td>
-                                      </tr>
+                              </ng-template>
+                              <ng-template pTemplate="body" let-item>
+                                  <tr>
+                                      <td><b>{{item.vcFuente}}</b></td>
+                                      <td><div [innerHTML]="item.vcRecurso"></div></td>
+                                      <td>{{item.vcActividad}}</td>
+                                      <td>{{item.vcColumna3}}</td>
+                                      <td>{{item.vcNumero}}</td>
+                                      <td>{{item.vcFecha}}</td>
+                                      <td><button class="btn" style="float:right" (click)="doVerDetalle(item.nuIdTipoRegistro, item.nuIdRegistro, md_patentes, md_conocimiento)"
+                                         ><i class="fa fa-outdent"></i></button></td>
+                                  </tr>
+                                  <tr >
+                                    <td><b>Resumen:</b></td>
+                                      <td colspan="5"><div [innerHTML]="item.vcResumen"></div></td>
+                                      <td></td>
+                                  </tr>
+                              </ng-template>
+                          </p-table>
 
-                                      <tr>
-                                        <td colspan="8">
-                                          <table class="table">
-                                            <tbody>
-                                              <th rowspan="3" scope="row">2</th>
-                                              <td rowspan="3" >Conocimiento tradicional</td>
-                                              <td>Lepidium meyenii Walp. </td>
-                                              <td>Osteoporosis</td>
-                                              <td>Maritsabel Antonio</td>
-                                              <td>2801 / 1234567 </td>
-                                              <td>11/01/2021 </td>
-                                              <td><button class="btn" (click)="openModal(md_conocimiento_tradicional)"><i class="fa fa-search"></i></button></td>
-                                              <tr>
-                                                <th >Resumen:</th>
-                                                <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td colspan="8">
-                                          <table class="table">
-                                            <tbody>
-                                              <th rowspan="3" scope="row">3</th>
-                                              <td rowspan="3" >Informacion tecnica</td>
-                                              <td>Lepidium meyenii Walp. </td>
-                                              <td>Osteoporosis</td>
-                                              <td>Maritsabel Antonio</td>
-                                              <td>2801 / 1234567 </td>
-                                              <td>11/01/2021 </td>
-                                              <td><button class="btn" (click)="openModal(md_conocimiento_tecnico)"><i class="fa fa-search"></i></button></td>
-                                              <tr>
-                                                <th >Resumen:</th>
-                                                <td colspan="7">En este estudio, utilizando un <span class="mark">borrador</span> de secuencia del genoma recientemente publicado de una maca de plantas a gran altitud (Lepidium meyenii Walp) y aplicando enfoques basados ¿¿en computación de todo el genoma, se identificaron un total de 62 miRNA potencialmente conservados pertenecientes a 28 familias y cuatro (lme-miR160a , lme-miR164c, lme-miR 166a y...</td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                        </td>
-                                      </tr>
-
-                                </tbody>
-                              </table>
-                              <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                  <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                  </li>
-                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                  </li>
-                                </ul>
-                              </nav>
                             </div>
                           </div>
 
@@ -483,560 +613,333 @@
     </div>
 
 
+
     <ng-template #md_patentes>
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Patente</h4>
+
+        <form class="form-inline">
+          <div class="form-group mb-2">
+            <button (click)="doMostrarPatenteFlag()" style="float:right;margin-bottom: 5px;" type="button" class="btn btn-outline-primary pull-right"><i class="fa fa-arrows-alt"></i></button>
+            <h4> PATENTES</h4>
+          </div>
+        </form>
+
+        <!-- <div class="form-row">
+          <div class="form-group col-sm-12" style="margin-bottom: 0px;">
+            <button (click)="doMostrarPatenteFlag()" style="float:right;margin-bottom: 5px;" type="button" class="btn btn-outline-primary pull-right"><i class="fa fa-arrows-alt"></i></button>
+            <h4>PATENTES</h4>
+          </div>
+        </div> -->
+        <!-- <h4 class="modal-title pull-left">Patente</h4> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="print">
 
-        <div>
-          <tabset>
-            <tab heading="Detalle">
 
-              <div class="form-row margin_top_10">
-                <div class="form-group col-sm-12">
-                  <h6>Solicitante</h6>
-                  <div class="box_brown">
-                    Maritsabel Antonio
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Título (Español)</h6>
-                  <div class="box_brown">
-                    xxxMethod for extracting effective component of maca
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Título (Inglés)</h6>
-                  <div class="box_brown">
-                    Method for extracting effective component of maca
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Número de publicación</h6>
-                  <div class="box_brown">
-                    124555
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Fecha de públicacion</h6>
-                  <div class="box_brown">
-                    10/12/2020
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Reivindicacion</h6>
-                  <div class="box_brown">
-                    sssss
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>CIP</h6>
-                  <div class="box_brown">
-                    KFKFK
-                  </div>
-                </div>
-
-                <div class="form-group col-sm-4">
-                  <h6>Pub. Country Code</h6>
-                  <div class="box_brown">
-                    No hay Información registrada
-                  </div>
-                </div>
-                <div class="form-group col-sm-4">
-                  <h6>Pub. Year</h6>
-                  <div class="box_brown">
-                    No hay Información registrada
-                  </div>
-                </div>
-                <div class="form-group col-sm-4">
-                  <h6>App. Date</h6>
-                  <div class="box_brown">
-                    ---------------
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Ventaja técnica</h6>
-                  <div class="box_brown">
-                    KFKFK
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Resúmen en español</h6>
-                  <div class="box_brown">
-                    <p class="mb-0">No hay informacion registrada.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Resúmen en ingles</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
+      <p-accordion>
+        <p-accordionTab header="Datos de la patente" [(selected)]="activeStatePatente[0]">
+          <div class="form-row margin_top_10">
+            <!-- <div class="form-group col-sm-12">
+              <h6>Solicitante</h6>
+              <div class="box_brown">
+                Maritsabel Antonio
               </div>
-
-            </tab>
-            <tab heading="Recursos Biológicos">
-              <div class="form-row margin_top_10">
-                <div class="form-group col-sm-6">
-                  <h6>Nombre común</h6>
-                  <div class="box_brown">
-                    xxxMethod for extracting effective component of maca
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Nombre cientifico</h6>
-                  <div class="box_brown">
-                    Method for extracting effective component of maca
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Nombre familia</h6>
-                  <div class="box_brown">
-                    <p class="mb-0">No hay informacion registrada.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Sinonimos bótanicos</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Reino</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Clase</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
+            </div> -->
+            <div class="form-group col-sm-6">
+              <h6>Título (Español)</h6>
+              <div class="box_brown">
+               {{objPatentes?.lstDatosPatentes[0]?.vcTituloOriginal}}
               </div>
-            </tab>
-            <tab heading="Actividad farmacológica">
-              <div class="form-row">
-                <div class="form-group col-sm-12">
-                  <h6>Actividad 1</h6>
-                  <div class="box_brown">
-                    Mi actividad 1
-                  </div>
-
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Actividad 2</h6>
-                  <div class="box_brown">
-                    Mi actividad 2
-                  </div>
-
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Actividad 3</h6>
-                  <div class="box_brown">
-                    Mi actividad 3
-                  </div>
-
-                </div>
-
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>Título (Inglés)</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcTituloIngles}}
               </div>
-            </tab>
-            <tab heading="Imprimir">
-              <div class="form-group col-sm-12">
-                <h6>Datos que se imprimirán</h6>
-                <div class="box_brown">
-                  Información a imprimir
-                </div>
-
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>Número de publicación</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcPubNumber}}
               </div>
-              <div class="form-row">
-                <div class="form-group col-sm-12">
-                  <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
-                  </button>
-                </div>
-
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>Fecha de públicacion</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcPubDate}}
               </div>
-            </tab>
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>Reivindicacion</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcIndependentClaims}}
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>CIP</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcIpc4}}
+              </div>
+            </div>
 
-          </tabset>
-        </div>
+            <div class="form-group col-sm-4">
+              <h6>Pub. Country Code</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcPubCountryCode}}
+              </div>
+            </div>
+            <div class="form-group col-sm-4">
+              <h6>Pub. Year</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcPubYear}}
+              </div>
+            </div>
+            <div class="form-group col-sm-4">
+              <h6>App. Date</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcAppDate}}
+              </div>
+            </div>
+            <div class="form-group col-sm-12">
+              <h6>Ventaja técnica</h6>
+              <div class="box_brown">
+                {{objPatentes?.lstDatosPatentes[0]?.vcVentajaTecnica}}
+              </div>
+            </div>
+            <div class="form-group col-sm-12">
+              <h6>Resúmen en español</h6>
+              <div class="box_brown">
+                <p class="mb-0"> {{objPatentes?.lstDatosPatentes[0]?.vcAbstracEspanol}}</p>
+              </div>
+            </div>
+            <div class="form-group col-sm-12">
+              <h6>Resúmen en ingles</h6>
 
+              <div class="box_brown">
+                <p class="mb-0">{{objPatentes?.lstDatosPatentes[0]?.vcAbstracIngles}}</p>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
 
+        <p-accordionTab header="Recursos Biológicos" [(selected)]="activeStatePatente[1]">
+          <div class="form-row margin_top_10">
+            <div class="form-group col-sm-3">
+              <h6>Nro.</h6>
+              <div class="box_brown">
+               1
+              </div>
+            </div>
+            <div class="form-group col-sm-9">
+              <h6>Nombre cientifico.</h6>
+              <div class="box_brown">
+               {{objPatentes?.lstDatosPatentes[0]?.vcNombreCientifico}}
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+
+        <p-accordionTab header="Actividad Farmacológica" [(selected)]="activeStatePatente[2]">
+          <div class="form-row margin_top_10">
+            <div class="form-group col-sm-3">
+              <h6>Nro.</h6>
+            </div>
+            <div class="form-group col-sm-9">
+              <h6>Nombre cientifico.</h6>
+            </div>
+          </div>
+          <div class="form-row margin_top_10" *ngFor="let item of objPatentes?.lstActividadRelacionada; let row=index;">
+            <div class="form-group col-sm-3">
+              <div class="box_brown">
+               {{row+1}}
+              </div>
+            </div>
+            <div class="form-group col-sm-9">
+              <div class="box_brown">
+               {{item.vcActividad}}
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+    </p-accordion>
       </div>
     </ng-template>
 
-    <ng-template #md_conocimiento_tradicional>
+    <ng-template #md_conocimiento>
       <div class="modal-header">
-        <h4 class="modal-title pull-left">Conocimiento tradicional</h4>
+        <div class="form-row">
+          <div class="form-group col-sm-12" style="margin-bottom: 0px;">
+            <button (click)="doMostrarConocimientoFlag()" style="float:right;margin-bottom: 5px;" type="button" class="btn btn-outline-primary pull-right"><i class="fa fa-arrows-alt"></i></button>
+            CONOCIMIENTO
+            <!-- <button (click)="printToSeccion('')" type="button" style="float:right;margin-bottom: 5px;" class="btn btn-outline-primary pull-right"><i class="fa fa-print"></i></button> -->
+          </div>
+        </div>
+        <!-- <h4 class="modal-title pull-left">Conocimiento</h4> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-
-        <div>
-          <tabset>
-            <tab heading="Información general">
-
-              <div class="form-row margin_top_10">
-                <div class="form-group col-sm-12">
-                  <h6>Solicitante</h6>
-                  <div class="box_brown">
-                    Maritsabel Antonio
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Título (Español)</h6>
-                  <div class="box_brown">
-                    Alimento: Hoja como verdura
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Título (Inglés)</h6>
-                  <div class="box_brown">
-                    No hay informacion registrada
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Nro	Nombre Común</h6>
-                  <div class="box_brown">
-                    maca; maka; maca-maca; maino, ayak, chichira, ayak willku, huto-huto, peruvian ginseng
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Nombre Científico</h6>
-                  <div class="box_brown">
-                    Lepidium meyenii Walp.
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Familia</h6>
-                  <div class="box_brown">
-                    Mi familia
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Reino</h6>
-                  <div class="box_brown">
-                  mi reino
-                  </div>
-                </div>
-
-
-
-                <div class="form-group col-sm-12">
-                  <h6>Resúmen en español</h6>
-                  <div class="box_brown">
-                    <p class="mb-0">No hay informacion registrada.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Resúmen en ingles</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
+      <p-accordion>
+        <p-accordionTab header="Recursos naturales" [(selected)]="activeStateConocimiento[0]">
+          <div class="form-row margin_top_10 row_table_bottom">
+            <div class="form-group col-sm-2">
+              <h6>Nro.</h6>
+            </div>
+            <div class="form-group col-sm-4">
+              <h6>Nombre cientifico</h6>
+            </div>
+            <div class="form-group col-sm-3">
+              <h6>Nombre común</h6>
+            </div>
+            <div class="form-group col-sm-3">
+              <h6>Familia</h6>
+            </div>
+          </div>
+          <div class="form-row margin_top_10 row_table_bottom" *ngFor="let item of objConocimiento?.lstRecursoRelacionado; let row=index;">
+            <div class="form-group col-sm-2">
+              <div >
+               {{row+1}}
               </div>
-
-            </tab>
-            <tab heading="Recursos Biológicos">
-              <div class="form-row margin_top_10">
-                <div class="form-group col-sm-6">
-                  <h6>Nombre común</h6>
-                  <div class="box_brown">
-                    xxxMethod for extracting effective component of maca
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Nombre cientifico</h6>
-                  <div class="box_brown">
-                    Method for extracting effective component of maca
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Nombre familia</h6>
-                  <div class="box_brown">
-                    <p class="mb-0">No hay informacion registrada.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Sinonimos bótanicos</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Reino</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Clase</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
+            </div>
+            <div class="form-group col-sm-4">
+              <div >
+               {{item.vcNombreCientifico}}
               </div>
-            </tab>
-            <tab heading="Bibliografia">
-              <div class="form-row margin_top_10">
-                <div class="form-group col-sm-12">
-                  <h6>Detalle 1</h6>
-                  <div class="box_brown">
-                    Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
-                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="form-group col-sm-12">
-                  <h6>Detalle 2</h6>
-                  <div class="box_brown">
-                    Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
-                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </div>
-
-
+            </div>
+            <div class="form-group col-sm-3">
+              <div >
+               {{item.vcNombreComun}}
               </div>
-            </tab>
-            <tab heading="Actividad farmacológica">
-              <div class="form-row">
-                <div class="form-group col-sm-12">
-                  <h6>Actividad 1</h6>
-                  <div class="box_brown">
-                    Mi actividad 1
-                  </div>
-
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Actividad 2</h6>
-                  <div class="box_brown">
-                    Mi actividad 2
-                  </div>
-
-                </div>
-
+            </div>
+            <div class="form-group col-sm-3">
+              <div >
+               {{item.vcNombreFamilia}}
               </div>
-            </tab>
-            <tab heading="Imprimir">
-              <div class="form-group col-sm-12">
-                <h6>Datos que se imprimirán</h6>
-                <div class="box_brown">
-                  Información a imprimir
-                </div>
+            </div>
+          </div>
+        </p-accordionTab>
 
+        <p-accordionTab header="Descripción" [(selected)]="activeStateConocimiento[1]">
+          <div class="form-row margin_top_10">
+            <div class="form-group col-sm-12">
+              <h6>Descripcion en español</h6>
+              <div class="box_brown">
+                {{objConocimiento?.lstDescripcion[0]?.vcNombresEspanol}}
               </div>
-              <div class="form-row">
-                <div class="form-group col-sm-12">
-                  <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
-                  </button>
-                </div>
-
+            </div>
+            <div class="form-group col-sm-12">
+              <h6>Descripcion en ingles</h6>
+              <div class="box_brown">
+                {{objConocimiento?.lstDescripcion[0]?.vcNombresIngles}}
               </div>
-            </tab>
+            </div>
+          </div>
+        </p-accordionTab>
 
-          </tabset>
-        </div>
-
-
-      </div>
-    </ng-template>
-
-    <ng-template #md_conocimiento_tecnico>
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Conocimiento técnico</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <div>
-          <tabset>
-            <tab heading="Información general">
-
-              <div class="form-row margin_top_10">
-                <div class="form-group col-sm-12">
-                  <h6>Solicitante</h6>
-                  <div class="box_brown">
-                    Maritsabel Antonio
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Título (Español)</h6>
-                  <div class="box_brown">
-                    Alimento: Hoja como verdura
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Título (Inglés)</h6>
-                  <div class="box_brown">
-                    No hay informacion registrada
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Nro	Nombre Común</h6>
-                  <div class="box_brown">
-                    maca; maka; maca-maca; maino, ayak, chichira, ayak willku, huto-huto, peruvian ginseng
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Nombre Científico</h6>
-                  <div class="box_brown">
-                    Lepidium meyenii Walp.
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Familia</h6>
-                  <div class="box_brown">
-                    Mi familia
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Reino</h6>
-                  <div class="box_brown">
-                  mi reino
-                  </div>
-                </div>
-
-
-
-                <div class="form-group col-sm-12">
-                  <h6>Resúmen en español</h6>
-                  <div class="box_brown">
-                    <p class="mb-0">No hay informacion registrada.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Resúmen en ingles</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
+        <p-accordionTab header="Actividad farmacologica" [(selected)]="activeStateConocimiento[2]">
+          <div class="form-row margin_top_10 row_table_bottom">
+            <div class="form-group col-sm-2">
+              <h6>Nro.</h6>
+            </div>
+            <div class="form-group col-sm-10">
+              <h6>Nombre cientifico.</h6>
+            </div>
+          </div>
+          <div class="form-row margin_top_10 row_table_bottom" *ngFor="let item of objConocimiento?.lstActividadRelacionada; let row=index;">
+            <div class="form-group col-sm-2">
+              <div>
+               {{row+1}}
               </div>
-
-            </tab>
-            <tab heading="Recursos Biológicos">
-              <div class="form-row margin_top_10">
-                <div class="form-group col-sm-6">
-                  <h6>Nombre común</h6>
-                  <div class="box_brown">
-                    xxxMethod for extracting effective component of maca
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Nombre cientifico</h6>
-                  <div class="box_brown">
-                    Method for extracting effective component of maca
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Nombre familia</h6>
-                  <div class="box_brown">
-                    <p class="mb-0">No hay informacion registrada.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Sinonimos bótanicos</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Reino</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
-                <div class="form-group col-sm-6">
-                  <h6>Clase</h6>
-
-                  <div class="box_brown">
-                    <p class="mb-0">Method for extracting effective component of maca.</p>
-                  </div>
-                </div>
+            </div>
+            <div class="form-group col-sm-10">
+              <div >
+               {{item.vcActividad}}
               </div>
-            </tab>
-            <tab heading="Bibliografia">
-              <div class="form-row margin_top_10">
-                <div class="form-group col-sm-12">
-                  <h6>Detalle 1</h6>
-                  <div class="box_brown">
-                    Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
-                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="form-group col-sm-12">
-                  <h6>Detalle 2</h6>
-                  <div class="box_brown">
-                    Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
-                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </div>
-
-
+            </div>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Bibliografía" [(selected)]="activeStateConocimiento[3]">
+          <div class="form-row margin_top_10">
+            <div class="form-group col-sm-12">
+              <h6>Autor</h6>
+              <div class="box_brown">
+                {{objConocimiento?.lstBibliografia[0]?.vcAutor}}
               </div>
-            </tab>
-            <tab heading="Actividad farmacológica">
-              <div class="form-row">
-                <div class="form-group col-sm-12">
-                  <h6>Actividad 1</h6>
-                  <div class="box_brown">
-                    Mi actividad 1
-                  </div>
-
-                </div>
-                <div class="form-group col-sm-12">
-                  <h6>Actividad 2</h6>
-                  <div class="box_brown">
-                    Mi actividad 2
-                  </div>
-
-                </div>
-
+            </div>
+            <div class="form-group col-sm-12">
+              <h6>Fuente</h6>
+              <div class="box_brown">
+                {{objConocimiento?.lstBibliografia[0]?.vcNombreFuente}}
               </div>
-            </tab>
-            <tab heading="Imprimir">
-              <div class="form-group col-sm-12">
-                <h6>Datos que se imprimirán</h6>
-                <div class="box_brown">
-                  Información a imprimir
-                </div>
-
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>Editorial</h6>
+              <div class="box_brown">
+                {{objConocimiento?.lstBibliografia[0]?.vcEditorial}}
               </div>
-              <div class="form-row">
-                <div class="form-group col-sm-12">
-                  <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
-                  </button>
-                </div>
-
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>Fecha de publicación</h6>
+              <div class="box_brown">
+                {{objConocimiento?.lstBibliografia[0]?.vcFechaPublicacion}}
               </div>
-            </tab>
-
-          </tabset>
-        </div>
-
-
+            </div>
+            <div class="form-group col-sm-12">
+              <h6>Lugar de publicación</h6>
+              <div class="box_brown">
+                {{objConocimiento?.lstBibliografia[0]?.vcLugarPublicacion}}
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>Página citada</h6>
+              <div class="box_brown">
+                {{objConocimiento?.lstBibliografia[0]?.vcPaginaCitada}}
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header="Archivos" [(selected)]="activeStateConocimiento[4]">
+          <div class="form-row margin_top_10 row_table_bottom">
+            <div class="form-group col-sm-2">
+              <h6>Nro.</h6>
+            </div>
+            <div class="form-group col-sm-6">
+              <h6>Nombre de archivo</h6>
+            </div>
+            <div class="form-group col-sm-2">
+              <h6>Tamaño (Kb)</h6>
+            </div>
+            <div class="form-group col-sm-2">
+              <h6>Acción</h6>
+            </div>
+          </div>
+          <div class="form-row margin_top_10 row_table_bottom" *ngFor="let item of objConocimiento?.lstArchivo; let row=index;">
+            <div class="form-group col-sm-2">
+              <div>
+               {{row+1}}
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <div >
+               {{item.vcNombreOrigial}}
+              </div>
+            </div>
+            <div class="form-group col-sm-2">
+              <div >
+               {{item.nuLong}}
+              </div>
+            </div>
+            <div class="form-group col-sm-2">
+              <div >
+                <button type="button" class="btn btn-outline-primary"
+                style="margin-bottom: 5px;"><i class="fa fa-cloud-download"></i></button>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
       </div>
     </ng-template>

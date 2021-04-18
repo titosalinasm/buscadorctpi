@@ -5,11 +5,15 @@
 export const END_POINTS = {
 
     lstgeneral: {
-        actividad: '/lstgeneral/lstactividad',
+        actividad: '/lstgeneral/lsttodos',
         recurso: '/lstgeneral/lstrecurso'
     },
     busqueda :{
-      lsttodos:'/busqueda/lsttodos'
+      lsttodos:'/busqueda/lsttodos',
+      detalle: '/busqueda/lstdetalle',
+      lstTodosAvanzado : '/busqueda/lstavanzado',
+      lstpatentes: '/busqueda/lstpatentes',
+      lstconocimientos: '/busqueda/lstconocimientos'
     },
     token:{
       oauth:'/oauth/token'

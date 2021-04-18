@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CountriesService } from '../services/countries.service';
+import { DetalleService } from '../services/detalle.service';
 import { LstgeneralService } from '../services/lstgeneral.service';
 import { RecursoService } from '../services/recurso.service';
 import { TodoscoleccionesService } from '../services/todoscolecciones.service';
@@ -19,10 +20,14 @@ export class BussimpleComponent implements OnInit {
   lstRecursos: any[];
   vcRecurso: any;
 
-  activeState: boolean[] = [true, false, false];
+  activeStatePatente: boolean[] = [true, false, false];
+  blFlagShowPatente : boolean =false;
+  activeStateConocimiento: boolean[] = [true, false, false, false, false];
+  blFlagShowConocimiento : boolean=false;
 
-  orderForm: FormGroup;
-  items: FormArray;
+
+  // orderForm: FormGroup;
+  // items: FormArray;
 
   stateOptions: any[];
   value1: string = "off";
@@ -32,11 +37,16 @@ export class BussimpleComponent implements OnInit {
   lstActividadSelect: any[];
   lstTodasColecciones : any[];
 
-    customers: any[];
+
+   objPatentes: any;
+   objConocimiento: any;
+
 
     first = 0;
 
     rows = 10;
+
+
 
 
   constructor(private modalService: BsModalService,
@@ -44,28 +54,35 @@ export class BussimpleComponent implements OnInit {
               private _spinner: NgxSpinnerService,
               private _lstgeneralService : LstgeneralService,
               private _recursoService:  RecursoService,
-              private _todoscoleccionesService: TodoscoleccionesService) {
+              private _todoscoleccionesService: TodoscoleccionesService,
+              private _detalleService : DetalleService) {
 
               this.doCargarLstGenerales();
 
               this.stateOptions = [{label: 'Y', value: 'Y'}, {label: 'O', value: 'O'}];
-
   }
 
   ngOnInit(): void {
-    this.orderForm = this.formBuilder.group({
-      customerName: '',
-      email: '',
-      items: this.formBuilder.array([this.createItem()])
-    });
-
-
-
   }
 
-  toggle(index: number) {
-    this.activeState[index] = !this.activeState[index];
-}
+  doMostrarPatenteFlag() {
+    this.blFlagShowPatente=!this.blFlagShowPatente;
+    for(let i=0; i<this.activeStatePatente.length; i++){
+      this.activeStatePatente[i] = this.blFlagShowPatente;
+    }
+    }
+
+    doMostrarConocimientoFlag() {
+      this.blFlagShowConocimiento=!this.blFlagShowConocimiento;
+      for(let i=0; i<this.activeStateConocimiento.length; i++){
+        this.activeStateConocimiento[i] = this.blFlagShowConocimiento;
+      }
+      }
+    printToSeccion(printSectionId: string){
+      window.print();
+    }
+
+
   doCargarLstGenerales(){
     this._spinner.show();
       let objJSON={};
@@ -99,7 +116,38 @@ export class BussimpleComponent implements OnInit {
     );
   }
 
+  doVerDetalle(nuTipo: any, nuRegistro: any, modal_patentes: TemplateRef<any>, modal_conocimiento: TemplateRef<any>){
+   console.log("doVerDetalle");
+    this._spinner.show();
+    let param={
+      nuIdTipo: nuTipo,
+      nuIdRegistro: nuRegistro
+    }
+    this._detalleService.getWithPost$(param).subscribe(
+      resp=>{
+        this._spinner.hide();
+        switch(nuTipo){
+          case 1:
+            this.objPatentes=resp;
+            this.openModal(modal_patentes);
+            break;
+          case 2:
+            this.objConocimiento=resp;
+            this.openModal(modal_conocimiento);
+            break;
+          default:
+            console.log("No se encontro tipo");
+            break;
+        }
+        console.log(JSON.stringify(resp));
+      },
+      error=>{
+        this._spinner.hide();
+        console.log(JSON.stringify(error));
+      }
+    );
 
+  }
 
   doBuscarTodaslasColecciones(){
     this._spinner.show();
@@ -130,10 +178,10 @@ export class BussimpleComponent implements OnInit {
     );
   }
 
-addItem(): void {
-  this.items = this.orderForm.get('items') as FormArray;
-  this.items.push(this.createItem());
-}
+// addItem(): void {
+//   this.items = this.orderForm.get('items') as FormArray;
+//   this.items.push(this.createItem());
+// }
 
 createItem(): FormGroup {
   return this.formBuilder.group({
@@ -159,11 +207,11 @@ reset() {
     this.first = 0;
 }
 isLastPage(): boolean {
-  return this.customers ? this.first === (this.customers.length - this.rows): true;
+  return this.lstTodasColecciones ? this.first === (this.lstTodasColecciones.length - this.rows): true;
 }
 
 isFirstPage(): boolean {
-  return this.customers ? this.first === 0 : true;
+  return this.lstTodasColecciones ? this.first === 0 : true;
 }
 
 }

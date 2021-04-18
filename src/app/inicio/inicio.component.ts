@@ -40,6 +40,7 @@ export class InicioComponent   implements OnInit {
         resp => {
           this._spinner.hide();
           if (resp.access_token) {
+            console.log(resp.access_token);
             sessionStorage.setItem("access_token", resp.access_token);
           }
         },

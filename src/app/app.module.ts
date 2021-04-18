@@ -39,6 +39,10 @@ import { LstgeneralService } from './services/lstgeneral.service';
 import { TokenService } from './services/token.service';
 import { RecursoService } from './services/recurso.service';
 import { TodoscoleccionesService } from './services/todoscolecciones.service';
+import { DetalleService } from './services/detalle.service';
+import { BusquedaavanzadaService } from './services/busquedaavanzada.service';
+import { BusquedaconocimientoService } from './services/busquedaconocimiento.service';
+import { BusquedapatentesService } from './services/busquedapatentes.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +80,10 @@ import { TodoscoleccionesService } from './services/todoscolecciones.service';
     LstgeneralService,
     RecursoService,
     TodoscoleccionesService,
+    DetalleService,
+    BusquedaavanzadaService,
+    BusquedaconocimientoService,
+    BusquedapatentesService,
     { provide: HTTP_INTERCEPTORS, useClass: OauthInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

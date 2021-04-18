@@ -78,7 +78,7 @@
                         <p-table [value]="lstTodasColecciones" [paginator]="true" [rows]="rows"
                             [showCurrentPageReport]="true" [(first)]="first"
                             currentPageReportTemplate="Mostrando {first} de {last} - {totalRecords} registros"
-                            [rowsPerPageOptions]="[10,25,50]"
+                            [rowsPerPageOptions]="[10,25,50, 100,500, 1000, 2000, 5000, 10000]"
                             styleClass="p-datatable-responsive-todos-colecciones"
                             >
                             <ng-template pTemplate="header">
@@ -90,7 +90,7 @@
                                     <th>Nro. Registro</th>
                                     <th>Fecha Publicación</th>
                                     <th><button type="button" class="btn btn-outline-primary"
-                                      style="float:right;margin-bottom: 5px;"><i class="fa fa-file-excel-o"></i> Imprimir </button></th>
+                                      style="float:right;margin-bottom: 5px;"><i class="fa fa-file-excel-o"></i></button></th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-item>
@@ -101,7 +101,8 @@
                                     <td>{{item.vcColumna3}}</td>
                                     <td>{{item.vcNumero}}</td>
                                     <td>{{item.vcFecha}}</td>
-                                    <td><button class="btn" ><i class="fa fa-outdent"  (click)="openModal(md_patentes)"></i></button></td>
+                                    <td><button class="btn" (click)="doVerDetalle(item.nuIdTipoRegistro, item.nuIdRegistro, md_patentes, md_conocimiento)"
+                                       ><i class="fa fa-outdent"></i></button></td>
                                 </tr>
                                 <tr >
                                   <td><b>Resumen:</b></td>
@@ -131,582 +132,322 @@
 
 <ng-template #md_patentes>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Patente</h4>
+    <div class="form-row">
+      <div class="form-group col-sm-12" style="margin-bottom: 0px;">
+        <button (click)="doMostrarPatenteFlag()" style="float:right;margin-bottom: 5px;" type="button" class="btn btn-outline-primary pull-right"><i class="fa fa-arrows-alt"></i></button>
+        <!-- <button (click)="printToSeccion('')" type="button" style="float:right;margin-bottom: 5px;" class="btn btn-outline-primary pull-right"><i class="fa fa-print"></i></button> -->
+      </div>
+    </div>
+    <!-- <h4 class="modal-title pull-left">Patente</h4> -->
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <h5>Programmatic</h5>
-<div class="p-py-3">
-    <p-button [icon]="activeState[0] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(0)" styleClass="p-button-text" label="Toggle 1st"></p-button>
-    <p-button [icon]="activeState[1] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(1)" styleClass="p-button-text p-ml-2" label="Toggle 2st"></p-button>
-    <p-button [icon]="activeState[2] ? 'pi pi-minus' : 'pi pi-plus'" (click)="toggle(2)" styleClass="p-button-text p-ml-2" label="Toggle 3st"></p-button>
-</div>
+  <div class="modal-body" id="print">
 
-<p-accordion>
-    <p-accordionTab header="Header I" [(selected)]="activeState[0]">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+  <p-accordion>
+    <p-accordionTab header="Datos de la patente" [(selected)]="activeStatePatente[0]">
+      <div class="form-row margin_top_10">
+        <!-- <div class="form-group col-sm-12">
+          <h6>Solicitante</h6>
+          <div class="box_brown">
+            Maritsabel Antonio
+          </div>
+        </div> -->
+        <div class="form-group col-sm-6">
+          <h6>Título (Español)</h6>
+          <div class="box_brown">
+           {{objPatentes?.lstDatosPatentes[0]?.vcTituloOriginal}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>Título (Inglés)</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcTituloIngles}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>Número de publicación</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcPubNumber}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>Fecha de públicacion</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcPubDate}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>Reivindicacion</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcIndependentClaims}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>CIP</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcIpc4}}
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <h6>Pub. Country Code</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcPubCountryCode}}
+          </div>
+        </div>
+        <div class="form-group col-sm-4">
+          <h6>Pub. Year</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcPubYear}}
+          </div>
+        </div>
+        <div class="form-group col-sm-4">
+          <h6>App. Date</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcAppDate}}
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <h6>Ventaja técnica</h6>
+          <div class="box_brown">
+            {{objPatentes?.lstDatosPatentes[0]?.vcVentajaTecnica}}
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <h6>Resúmen en español</h6>
+          <div class="box_brown">
+            <p class="mb-0"> {{objPatentes?.lstDatosPatentes[0]?.vcAbstracEspanol}}</p>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <h6>Resúmen en ingles</h6>
+
+          <div class="box_brown">
+            <p class="mb-0">{{objPatentes?.lstDatosPatentes[0]?.vcAbstracIngles}}</p>
+          </div>
+        </div>
+      </div>
     </p-accordionTab>
-    <p-accordionTab header="Header II" [(selected)]="activeState[1]">
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+
+    <p-accordionTab header="Recursos Biológicos" [(selected)]="activeStatePatente[1]">
+      <div class="form-row margin_top_10">
+        <div class="form-group col-sm-3">
+          <h6>Nro.</h6>
+          <div class="box_brown">
+           1
+          </div>
+        </div>
+        <div class="form-group col-sm-9">
+          <h6>Nombre cientifico.</h6>
+          <div class="box_brown">
+           {{objPatentes?.lstDatosPatentes[0]?.vcNombreCientifico}}
+          </div>
+        </div>
+      </div>
     </p-accordionTab>
-    <p-accordionTab header="Header III" [(selected)]="activeState[2]">
-        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+
+    <p-accordionTab header="Actividad Farmacológica" [(selected)]="activeStatePatente[2]">
+      <div class="form-row margin_top_10">
+        <div class="form-group col-sm-3">
+          <h6>Nro.</h6>
+        </div>
+        <div class="form-group col-sm-9">
+          <h6>Nombre cientifico.</h6>
+        </div>
+      </div>
+      <div class="form-row margin_top_10" *ngFor="let item of objPatentes?.lstActividadRelacionada; let row=index;">
+        <div class="form-group col-sm-3">
+          <div class="box_brown">
+           {{row+1}}
+          </div>
+        </div>
+        <div class="form-group col-sm-9">
+          <div class="box_brown">
+           {{item.vcActividad}}
+          </div>
+        </div>
+      </div>
     </p-accordionTab>
 </p-accordion>
-
-    <!-- <div>
-      <tabset>
-        <tab heading="Detalle">
-
-          <div class="form-row margin_top_10">
-            <div class="form-group col-sm-12">
-              <h6>Solicitante</h6>
-              <div class="box_brown">
-                Maritsabel Antonio
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Título (Español)</h6>
-              <div class="box_brown">
-                xxxMethod for extracting effective component of maca
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Título (Inglés)</h6>
-              <div class="box_brown">
-                Method for extracting effective component of maca
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Número de publicación</h6>
-              <div class="box_brown">
-                124555
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Fecha de públicacion</h6>
-              <div class="box_brown">
-                10/12/2020
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Reivindicacion</h6>
-              <div class="box_brown">
-                sssss
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>CIP</h6>
-              <div class="box_brown">
-                KFKFK
-              </div>
-            </div>
-
-            <div class="form-group col-sm-4">
-              <h6>Pub. Country Code</h6>
-              <div class="box_brown">
-                No hay Información registrada
-              </div>
-            </div>
-            <div class="form-group col-sm-4">
-              <h6>Pub. Year</h6>
-              <div class="box_brown">
-                No hay Información registrada
-              </div>
-            </div>
-            <div class="form-group col-sm-4">
-              <h6>App. Date</h6>
-              <div class="box_brown">
-                ---------------
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Ventaja técnica</h6>
-              <div class="box_brown">
-                KFKFK
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Resúmen en español</h6>
-              <div class="box_brown">
-                <p class="mb-0">No hay informacion registrada.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Resúmen en ingles</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-          </div>
-
-        </tab>
-        <tab heading="Recursos Biológicos">
-          <div class="form-row margin_top_10">
-            <div class="form-group col-sm-6">
-              <h6>Nombre común</h6>
-              <div class="box_brown">
-                xxxMethod for extracting effective component of maca
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Nombre cientifico</h6>
-              <div class="box_brown">
-                Method for extracting effective component of maca
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Nombre familia</h6>
-              <div class="box_brown">
-                <p class="mb-0">No hay informacion registrada.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Sinonimos bótanicos</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Reino</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Clase</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-          </div>
-        </tab>
-        <tab heading="Actividad farmacológica">
-          <div class="form-row">
-            <div class="form-group col-sm-12">
-              <h6>Actividad 1</h6>
-              <div class="box_brown">
-                Mi actividad 1
-              </div>
-
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Actividad 2</h6>
-              <div class="box_brown">
-                Mi actividad 2
-              </div>
-
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Actividad 3</h6>
-              <div class="box_brown">
-                Mi actividad 3
-              </div>
-
-            </div>
-
-          </div>
-        </tab>
-        <tab heading="Imprimir">
-          <div class="form-group col-sm-12">
-            <h6>Datos que se imprimirán</h6>
-            <div class="box_brown">
-              Información a imprimir
-            </div>
-
-          </div>
-          <div class="form-row">
-            <div class="form-group col-sm-12">
-              <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
-              </button>
-            </div>
-
-          </div>
-        </tab>
-
-      </tabset>
-    </div>
- -->
-
   </div>
 </ng-template>
 
-<ng-template #md_conocimiento_tradicional>
+<ng-template #md_conocimiento>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Conocimiento tradicional</h4>
+    <div class="form-row">
+      <div class="form-group col-sm-12" style="margin-bottom: 0px;">
+        <button (click)="doMostrarConocimientoFlag()" style="float:right;margin-bottom: 5px;" type="button" class="btn btn-outline-primary pull-right"><i class="fa fa-arrows-alt"></i></button>
+        <!-- <button (click)="printToSeccion('')" type="button" style="float:right;margin-bottom: 5px;" class="btn btn-outline-primary pull-right"><i class="fa fa-print"></i></button> -->
+      </div>
+    </div>
+    <!-- <h4 class="modal-title pull-left">Conocimiento</h4> -->
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-
-    <div>
-      <tabset>
-        <tab heading="Información general">
-
-          <div class="form-row margin_top_10">
-            <div class="form-group col-sm-12">
-              <h6>Solicitante</h6>
-              <div class="box_brown">
-                Maritsabel Antonio
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Título (Español)</h6>
-              <div class="box_brown">
-                Alimento: Hoja como verdura
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Título (Inglés)</h6>
-              <div class="box_brown">
-                No hay informacion registrada
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Nro	Nombre Común</h6>
-              <div class="box_brown">
-                maca; maka; maca-maca; maino, ayak, chichira, ayak willku, huto-huto, peruvian ginseng
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Nombre Científico</h6>
-              <div class="box_brown">
-                Lepidium meyenii Walp.
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Familia</h6>
-              <div class="box_brown">
-                Mi familia
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Reino</h6>
-              <div class="box_brown">
-              mi reino
-              </div>
-            </div>
-
-
-
-            <div class="form-group col-sm-12">
-              <h6>Resúmen en español</h6>
-              <div class="box_brown">
-                <p class="mb-0">No hay informacion registrada.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Resúmen en ingles</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
+  <p-accordion>
+    <p-accordionTab header="Recursos naturales" [(selected)]="activeStateConocimiento[0]">
+      <div class="form-row margin_top_10 row_table_bottom">
+        <div class="form-group col-sm-2">
+          <h6>Nro.</h6>
+        </div>
+        <div class="form-group col-sm-4">
+          <h6>Nombre cientifico</h6>
+        </div>
+        <div class="form-group col-sm-3">
+          <h6>Nombre común</h6>
+        </div>
+        <div class="form-group col-sm-3">
+          <h6>Familia</h6>
+        </div>
+      </div>
+      <div class="form-row margin_top_10 row_table_bottom" *ngFor="let item of objConocimiento?.lstRecursoRelacionado; let row=index;">
+        <div class="form-group col-sm-2">
+          <div >
+           {{row+1}}
           </div>
-
-        </tab>
-        <tab heading="Recursos Biológicos">
-          <div class="form-row margin_top_10">
-            <div class="form-group col-sm-6">
-              <h6>Nombre común</h6>
-              <div class="box_brown">
-                xxxMethod for extracting effective component of maca
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Nombre cientifico</h6>
-              <div class="box_brown">
-                Method for extracting effective component of maca
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Nombre familia</h6>
-              <div class="box_brown">
-                <p class="mb-0">No hay informacion registrada.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Sinonimos bótanicos</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Reino</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Clase</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
+        </div>
+        <div class="form-group col-sm-4">
+          <div >
+           {{item.vcNombreCientifico}}
           </div>
-        </tab>
-        <tab heading="Bibliografia">
-          <div class="form-row margin_top_10">
-            <div class="form-group col-sm-12">
-              <h6>Detalle 1</h6>
-              <div class="box_brown">
-                Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
-                <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="form-group col-sm-12">
-              <h6>Detalle 2</h6>
-              <div class="box_brown">
-                Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
-                <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-
-
+        </div>
+        <div class="form-group col-sm-3">
+          <div >
+           {{item.vcNombreComun}}
           </div>
-        </tab>
-        <tab heading="Actividad farmacológica">
-          <div class="form-row">
-            <div class="form-group col-sm-12">
-              <h6>Actividad 1</h6>
-              <div class="box_brown">
-                Mi actividad 1
-              </div>
-
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Actividad 2</h6>
-              <div class="box_brown">
-                Mi actividad 2
-              </div>
-
-            </div>
-
+        </div>
+        <div class="form-group col-sm-3">
+          <div >
+           {{item.vcNombreFamilia}}
           </div>
-        </tab>
-        <tab heading="Imprimir">
-          <div class="form-group col-sm-12">
-            <h6>Datos que se imprimirán</h6>
-            <div class="box_brown">
-              Información a imprimir
-            </div>
+        </div>
+      </div>
+    </p-accordionTab>
 
+    <p-accordionTab header="Descripción" [(selected)]="activeStateConocimiento[1]">
+      <div class="form-row margin_top_10">
+        <div class="form-group col-sm-12">
+          <h6>Descripcion en español</h6>
+          <div class="box_brown">
+            {{objConocimiento?.lstDescripcion[0]?.vcNombresEspanol}}
           </div>
-          <div class="form-row">
-            <div class="form-group col-sm-12">
-              <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
-              </button>
-            </div>
-
+        </div>
+        <div class="form-group col-sm-12">
+          <h6>Descripcion en ingles</h6>
+          <div class="box_brown">
+            {{objConocimiento?.lstDescripcion[0]?.vcNombresIngles}}
           </div>
-        </tab>
+        </div>
+      </div>
+    </p-accordionTab>
 
-      </tabset>
-    </div>
-
-
+    <p-accordionTab header="Actividad farmacologica" [(selected)]="activeStateConocimiento[2]">
+      <div class="form-row margin_top_10 row_table_bottom">
+        <div class="form-group col-sm-2">
+          <h6>Nro.</h6>
+        </div>
+        <div class="form-group col-sm-10">
+          <h6>Nombre cientifico.</h6>
+        </div>
+      </div>
+      <div class="form-row margin_top_10 row_table_bottom" *ngFor="let item of objConocimiento?.lstActividadRelacionada; let row=index;">
+        <div class="form-group col-sm-2">
+          <div>
+           {{row+1}}
+          </div>
+        </div>
+        <div class="form-group col-sm-10">
+          <div >
+           {{item.vcActividad}}
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Bibliografía" [(selected)]="activeStateConocimiento[3]">
+      <div class="form-row margin_top_10">
+        <div class="form-group col-sm-12">
+          <h6>Autor</h6>
+          <div class="box_brown">
+            {{objConocimiento?.lstBibliografia[0]?.vcAutor}}
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <h6>Fuente</h6>
+          <div class="box_brown">
+            {{objConocimiento?.lstBibliografia[0]?.vcNombreFuente}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>Editorial</h6>
+          <div class="box_brown">
+            {{objConocimiento?.lstBibliografia[0]?.vcEditorial}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>Fecha de publicación</h6>
+          <div class="box_brown">
+            {{objConocimiento?.lstBibliografia[0]?.vcFechaPublicacion}}
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <h6>Lugar de publicación</h6>
+          <div class="box_brown">
+            {{objConocimiento?.lstBibliografia[0]?.vcLugarPublicacion}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>Página citada</h6>
+          <div class="box_brown">
+            {{objConocimiento?.lstBibliografia[0]?.vcPaginaCitada}}
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Archivos" [(selected)]="activeStateConocimiento[4]">
+      <div class="form-row margin_top_10 row_table_bottom">
+        <div class="form-group col-sm-2">
+          <h6>Nro.</h6>
+        </div>
+        <div class="form-group col-sm-6">
+          <h6>Nombre de archivo</h6>
+        </div>
+        <div class="form-group col-sm-2">
+          <h6>Tamaño (Kb)</h6>
+        </div>
+        <div class="form-group col-sm-2">
+          <h6>Acción</h6>
+        </div>
+      </div>
+      <div class="form-row margin_top_10 row_table_bottom" *ngFor="let item of objConocimiento?.lstArchivo; let row=index;">
+        <div class="form-group col-sm-2">
+          <div>
+           {{row+1}}
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <div >
+           {{item.vcNombreOrigial}}
+          </div>
+        </div>
+        <div class="form-group col-sm-2">
+          <div >
+           {{item.nuLong}}
+          </div>
+        </div>
+        <div class="form-group col-sm-2">
+          <div >
+            <button type="button" class="btn btn-outline-primary"
+            style="margin-bottom: 5px;"><i class="fa fa-cloud-download"></i></button>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
   </div>
 </ng-template>
 
-<ng-template #md_conocimiento_tecnico>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Conocimiento técnico</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-
-    <div>
-      <tabset>
-        <tab heading="Información general">
-
-          <div class="form-row margin_top_10">
-            <div class="form-group col-sm-12">
-              <h6>Solicitante</h6>
-              <div class="box_brown">
-                Maritsabel Antonio
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Título (Español)</h6>
-              <div class="box_brown">
-                Alimento: Hoja como verdura
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Título (Inglés)</h6>
-              <div class="box_brown">
-                No hay informacion registrada
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Nro	Nombre Común</h6>
-              <div class="box_brown">
-                maca; maka; maca-maca; maino, ayak, chichira, ayak willku, huto-huto, peruvian ginseng
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Nombre Científico</h6>
-              <div class="box_brown">
-                Lepidium meyenii Walp.
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Familia</h6>
-              <div class="box_brown">
-                Mi familia
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Reino</h6>
-              <div class="box_brown">
-              mi reino
-              </div>
-            </div>
-
-
-
-            <div class="form-group col-sm-12">
-              <h6>Resúmen en español</h6>
-              <div class="box_brown">
-                <p class="mb-0">No hay informacion registrada.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Resúmen en ingles</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-          </div>
-
-        </tab>
-        <tab heading="Recursos Biológicos">
-          <div class="form-row margin_top_10">
-            <div class="form-group col-sm-6">
-              <h6>Nombre común</h6>
-              <div class="box_brown">
-                xxxMethod for extracting effective component of maca
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Nombre cientifico</h6>
-              <div class="box_brown">
-                Method for extracting effective component of maca
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Nombre familia</h6>
-              <div class="box_brown">
-                <p class="mb-0">No hay informacion registrada.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Sinonimos bótanicos</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Reino</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <h6>Clase</h6>
-
-              <div class="box_brown">
-                <p class="mb-0">Method for extracting effective component of maca.</p>
-              </div>
-            </div>
-          </div>
-        </tab>
-        <tab heading="Bibliografia">
-          <div class="form-row margin_top_10">
-            <div class="form-group col-sm-12">
-              <h6>Detalle 1</h6>
-              <div class="box_brown">
-                Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
-                <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="form-group col-sm-12">
-              <h6>Detalle 2</h6>
-              <div class="box_brown">
-                Brack Egg, A, (1999), Diccionario Enciclopédico de Plantas Útiles del Perú , Cusco-Perú., CBC-Centro de Estudios Regionales Andinos "Bartolomé de las Casas"
-                <button type="button" class="btn btn-outline-primary"><i class="fa fa-download" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-
-
-          </div>
-        </tab>
-        <tab heading="Actividad farmacológica">
-          <div class="form-row">
-            <div class="form-group col-sm-12">
-              <h6>Actividad 1</h6>
-              <div class="box_brown">
-                Mi actividad 1
-              </div>
-
-            </div>
-            <div class="form-group col-sm-12">
-              <h6>Actividad 2</h6>
-              <div class="box_brown">
-                Mi actividad 2
-              </div>
-
-            </div>
-
-          </div>
-        </tab>
-        <tab heading="Imprimir">
-          <div class="form-group col-sm-12">
-            <h6>Datos que se imprimirán</h6>
-            <div class="box_brown">
-              Información a imprimir
-            </div>
-
-          </div>
-          <div class="form-row">
-            <div class="form-group col-sm-12">
-              <button type="button" class="btn btn-outline-primary" style="float:right;margin-bottom: 5px;">Imprimir
-              </button>
-            </div>
-
-          </div>
-        </tab>
-
-      </tabset>
-    </div>
-
-
-  </div>
-</ng-template>

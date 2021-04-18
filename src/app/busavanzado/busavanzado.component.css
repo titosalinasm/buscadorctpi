@@ -1,0 +1,29 @@
+.resumen{
+  padding: 10px;
+  border: 1px solid #d6d8db;
+  border-radius: 5px 5px 5px 5px;
+  }
+  .box_blue{
+      padding: 10px;
+  border: 1px solid #007bff;
+  border-radius: 5px 5px 5px 5px;
+  }
+  .box_brown{
+      padding: 10px;
+      /* border-top: 1px solid #d6d8db; */
+  border-left: 1px solid #d6d8db;
+  border-right: 1px solid #d6d8db;
+  border-bottom: 1px solid #d6d8db;
+  border-radius: 5px 5px 5px 5px;
+  }
+  .margin_top_10{
+      margin-top:  10px;
+  }
+
+  .mark {
+      color:#007bff;
+    }
+
+  .row_table_bottom{
+      border-bottom: 1px solid #d6d8db;
+    }
