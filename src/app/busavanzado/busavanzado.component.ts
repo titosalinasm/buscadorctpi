@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BrowserStack } from 'protractor/built/driverProviders';
 import { BusquedaavanzadaService } from '../services/busquedaavanzada.service';
 import { BusquedaconocimientoService } from '../services/busquedaconocimiento.service';
 import { BusquedapatentesService } from '../services/busquedapatentes.service';
@@ -126,6 +127,19 @@ export class BusavanzadoComponent implements OnInit {
   objConocimiento: any;
 
 
+  isShowTablePatentes: boolean = false;
+  isShowAllPatentes: boolean = false;
+  idShowPatentes: any = -1;
+
+  isShowTableConocimiento: boolean = false;
+  isShowAllConocimiento: boolean = false;
+  idShowConocimiento: any = -1;
+
+  isShowTableAvanzado: boolean = false;
+  isShowAllAvanzado: boolean = false;
+  idShowAvanzado: any = -1;
+
+
   constructor(private modalService: BsModalService,
               private formBuilder: FormBuilder,
               private _spinner: NgxSpinnerService,
@@ -143,6 +157,67 @@ export class BusavanzadoComponent implements OnInit {
   ngOnInit(): void {
     this.frmConocimientos1.get('nuIdTipoConocimiento').setValue(1);
   }
+doShowTab(item : any){
+ switch(item){
+    case 1:
+      this.isShowTablePatentes=true;
+      this.isShowTableConocimiento=false;
+      this.isShowTableAvanzado=false;
+    break;
+    case 2:
+      this.isShowTablePatentes=false;
+      this.isShowTableConocimiento=true;
+      this.isShowTableAvanzado=false;
+    break;
+    case 3:
+      this.isShowTablePatentes=false;
+      this.isShowTableConocimiento=false;
+      this.isShowTableAvanzado=true;
+    break;
+
+ }
+}
+
+  showOnePatente(id: any) {
+    if (this.idShowPatentes == id) {
+      this.idShowPatentes = -1;
+    } else {
+      this.idShowPatentes = id;
+    }
+  }
+
+  showAllPatente() {
+    this.isShowAllPatentes = !this.isShowAllPatentes;
+  }
+
+  showOneConocimiento(id: any) {
+    if (this.idShowConocimiento == id) {
+      this.idShowConocimiento = -1;
+    } else {
+      this.idShowConocimiento = id;
+    }
+  }
+
+  showAllConocimiento() {
+    this.isShowAllConocimiento = !this.isShowAllConocimiento;
+  }
+
+  showOneAvanzado(id: any) {
+    if (this.idShowAvanzado== id) {
+      this.idShowAvanzado = -1;
+    } else {
+      this.idShowAvanzado = id;
+    }
+  }
+
+  showAllAvanzado() {
+    this.isShowAllAvanzado = !this.isShowAllAvanzado;
+  }
+
+  imprimir() {
+    window.print();
+  }
+
 
   doVerDetalle(nuTipo: any, nuRegistro: any, modal_patentes: TemplateRef<any>, modal_conocimiento: TemplateRef<any>){
     console.log("doVerDetalle");
@@ -193,9 +268,9 @@ export class BusavanzadoComponent implements OnInit {
   doBuscarPatente(){
     this._spinner.show();
     let param={};
-    if(this.vcRecursoPatenteSelect.vcNombreCientifico){
+    if(this.vcRecursoPatenteSelect?.vcNombreCientifico){
     param={
-      vcNombreCientifico : this.vcRecursoPatenteSelect.vcNombreCientifico,
+      vcNombreCientifico : this.vcRecursoPatenteSelect?.vcNombreCientifico,
       lstActividad : this.lstActividadPatentesSelect,
       vcResumen: this.frmPatentes.value.vcResumen,
       vcTituloPatente:this.frmPatentes.value.vcTituloPatente,
@@ -220,10 +295,16 @@ export class BusavanzadoComponent implements OnInit {
     this._busquedapatentesService.getWithPost$(param).subscribe(
       resp=>{
         this._spinner.hide();
+        this.isShowTablePatentes=true;
+        this.isShowTableConocimiento=false;
+        this.isShowTableAvanzado=false;
          console.log(JSON.stringify(resp));
          this.lstResultadoPatente=resp.lstTodasColecciones;
       },
       error=>{
+        this.isShowTablePatentes=false;
+        this.isShowTableConocimiento=false;
+        this.isShowTableAvanzado=false;
         this._spinner.hide();
       }
     );
@@ -232,9 +313,9 @@ export class BusavanzadoComponent implements OnInit {
   doBuscarConocimiento(){
     this._spinner.show();
     let param={};
-    if(this.vcRecursoConocimientoSelect.vcNombreCientifico){
+    if(this.vcRecursoConocimientoSelect?.vcNombreCientifico){
     param={
-      vcNombreCientifico : this.vcRecursoConocimientoSelect.vcNombreCientifico,
+      vcNombreCientifico : this.vcRecursoConocimientoSelect?.vcNombreCientifico,
       lstActividad : this.lstActividadConocimientoSelect,
       nuIdTipoConocimiento: this.frmConocimientos1.value.nuIdTipoConocimiento,
       vcDescripcion: this.frmConocimientos2.value.vcDescripcion,
@@ -259,10 +340,16 @@ export class BusavanzadoComponent implements OnInit {
     this._busquedaconocimientoService.getWithPost$(param).subscribe(
       resp=>{
         this._spinner.hide();
+        this.isShowTablePatentes=false;
+        this.isShowTableConocimiento=true;
+        this.isShowTableAvanzado=false;
          console.log(JSON.stringify(resp));
          this.lstResultadoConocimiento=resp.lstTodasColecciones;
       },
       error=>{
+        this.isShowTablePatentes=false;
+        this.isShowTableConocimiento=false;
+        this.isShowTableAvanzado=false;
         this._spinner.hide();
       }
     );
@@ -270,10 +357,11 @@ export class BusavanzadoComponent implements OnInit {
 
   doBuscarAvanzada(){
     this._spinner.show();
+
     let param={};
-    if(this.vcRecursoAvanzadoSelect.vcNombreCientifico){
+    if(this.vcRecursoAvanzadoSelect?.vcNombreCientifico){
     param={
-      vcNombreCientifico : this.vcRecursoAvanzadoSelect.vcNombreCientifico,
+      vcNombreCientifico : this.vcRecursoAvanzadoSelect?.vcNombreCientifico,
       lstActividad : this.lstActividadAvanzadoSelect,
       lstValor: [
         {
@@ -418,10 +506,16 @@ export class BusavanzadoComponent implements OnInit {
     this._busquedaavanzadaService.getWithPost$(param).subscribe(
       resp=>{
         this._spinner.hide();
+        this.isShowTablePatentes=false;
+        this.isShowTableConocimiento=false;
+        this.isShowTableAvanzado=true;
          console.log(JSON.stringify(resp));
          this.lstResultadoAvanzado=resp.lstTodasColecciones;
       },
       error=>{
+        this.isShowTablePatentes=false;
+        this.isShowTableConocimiento=false;
+        this.isShowTableAvanzado=true;
         this._spinner.hide();
       }
     );

@@ -1,23 +1,15 @@
   <app-menu ></app-menu>
   <app-banner-principal></app-banner-principal>
-
+<!--
   <div class="container" >
     <div class="row justify-content-around">
       <div class="ctn-steps step0  col-md-9">
         <div class="container">
           <br>
-          <!-- <div class="row">
-            <div class="col-sm mt-3 mb-2 ">
-              <br />
-              <h1 class="color_blue">Estimado usuario,</h1>
-            </div>
-          </div> -->
           <div class="row">
             <div class="col-sm mt-2 mb-3">
               <h3 >
                 <div >Hola, realiza una búsqueda</div>
-
-                <!-- <span  class="toopltip"  placement="top" popoverTitle="Titulo ejemlo" triggers="mouseenter:mouseleave" popover="Ejemplo" > </span> -->
               </h3>
             </div>
           </div>
@@ -30,27 +22,73 @@
                 <a class="lnkSector text-center" (click)="goToBuscar(1)">
                   <img src="./assets/images/search_easy.svg"  class="_logo_proceso">
                   <img src="./assets/images/search_easy.svg"  class="_m_logo_proceso">
-                  <!-- <p class="mt-1 text-center">Documentos</p> -->
                 </a>
-                <span  class="toopltip"  placement="top"
-                triggers="mouseenter:mouseleave" popoverTitle="Soy el titulo"   popover="Popover" > </span>
+                <app-tooltip _tooltip="tooltip"> </app-tooltip>
               </div>
-
-
               <div class="sector" >
                 <a class="lnkSector text-center" (click)="goToBuscar(2)">
                   <img src="./assets/images/search_advanced.svg"  class="_logo_proceso">
                   <img src="./assets/images/search_advanced.svg"  class="_m_logo_proceso">
-                  <!-- <p class="mt-1 text-center">Documentos</p> -->
                 </a>
                 <span  class="toopltip"  placement="top"
                 triggers="mouseenter:mouseleave" popoverTitle="Soy el titulo"   popover="Popover" > </span>
               </div>
-
-
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
+  <div class="container">
+
+    <div class="row justify-content-around">
+
+      <div class="ctn-steps step0 col-xl-6 col-lg-7 col-md-9">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm mt-3 mb-2">
+              <h1>Hola,</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm mt-2 mb-3">
+              <h3>
+                Utilice las siguientes opciones para encontrar tu conocimiento o patente.
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="container mt-2">
+          <div class="row">
+            <div class="col-sm mb-3 text-center">
+              <div class="sector">
+                <a class="lnkSector text-center" (click)="goToBuscar(1)" >
+                  <img src="./assets/images/search_easy.svg"  class="_logo_proceso">
+                  <p class="mt-1 text-center">Búsqueda simple</p>
+                </a>
+                <app-tooltip popTitle="Titulo del tooltip de bus simple" class="toopltip"
+                popDescripcion="Cuerpo de la busqueda simple"> </app-tooltip>
+                <!-- <span placement="auto" class="toopltip"
+                  tooltip="Consulta si tu propuesta suena igual o parecido a alguna marca registrada o solicitada con anterioridad.">
+                </span> -->
+              </div>
+            </div>
+            <div class="col-sm mb-3 text-center">
+              <div class="sector">
+                <a class="lnkSector" (click)="goToBuscar(2)" >
+                  <img src="./assets/images/search_advanced.svg"  class="_logo_proceso" >
+                  <p class="mt-1">Búsqueda avanzada</p>
+                </a>
+                <app-tooltip popTitle="Titulo del tooltip de bus avanzada" class="toopltip"
+                popDescripcion="Cuerpo de la búsqueda avanzada"> </app-tooltip>
+
+                <!-- <span placement="auto" class="toopltip"
+                  tooltip='Consulta si la denominación de tu propuesta está incluida o coincide de forma "exacta" con alguna marca registrada o solicitada con anterioridad.'>
+                </span> -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -46,6 +46,10 @@ export class BussimpleComponent implements OnInit {
 
     rows = 10;
 
+    isShowTable: boolean = false;
+    isShowAll: boolean = false;
+    idShow: any = -1;
+
 
 
 
@@ -63,6 +67,22 @@ export class BussimpleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  showOne(id: any) {
+    if (this.idShow == id) {
+      this.idShow = -1;
+    } else {
+      this.idShow = id;
+    }
+  }
+
+  showAll() {
+    this.isShowAll = !this.isShowAll;
+  }
+
+  imprimir() {
+    window.print();
   }
 
   doMostrarPatenteFlag() {
@@ -152,9 +172,9 @@ export class BussimpleComponent implements OnInit {
   doBuscarTodaslasColecciones(){
     this._spinner.show();
     let param={};
-    if(this.vcRecurso.vcNombreCientifico){
+    if(this.vcRecurso?.vcNombreCientifico){
     param={
-      vcNombreCientifico : this.vcRecurso.vcNombreCientifico,
+      vcNombreCientifico : this.vcRecurso?.vcNombreCientifico,
       lstActividad : this.lstActividadSelect
     };
   }else{
@@ -169,6 +189,7 @@ export class BussimpleComponent implements OnInit {
     this._todoscoleccionesService.getWithPost$(param).subscribe(
       resp=>{
         this._spinner.hide();
+        this.isShowTable = true;
          console.log(JSON.stringify(resp));
          this.lstTodasColecciones=resp.lstTodasColecciones;
       },

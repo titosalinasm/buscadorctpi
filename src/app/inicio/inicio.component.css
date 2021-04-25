@@ -1,11 +1,9 @@
-h1 {
+/* h1 {
     font-family: montserrat-bold,Arial;
     color: rgb(0, 0, 0);
-    /* font-size: 1.5rem; */
     line-height: 1.5rem;
-    /* margin-bottom: 32px; */
 }
-/* .ctn-steps  */
+
 h3 {
     font-family: montserrat-bold,Arial;
     font-size: 1.125rem;
@@ -13,19 +11,18 @@ h3 {
     margin-bottom: 0;
 }
 
-/* .ctn-steps  */
+
 p {
     font-family: montserrat-regular,Arial;
     font-size: .875rem;
     line-height: 1;
-    /* margin-bottom: 18px; */
 }
 
 .ctn-sector {
     padding: 25px 0 40px;
 }
 
-/*.ctn-sector */.sector {
+.sector {
     display: inline-block;
     vertical-align: top;
     position: relative;
@@ -36,30 +33,29 @@ p {
 ._m_logo_proceso{
 display: none;
 }
-/*.ctn-sector */.lnkSector {
+.lnkSector {
     display: block;
     text-align: center;
     width: 160px;
     height: 160px;
-    border: 2px solid #9c0808;
+    border: 2px solid #65bd42;
     border-radius: 8px;
     color: #000;
     padding: 24px 0 12px;
-    box-shadow: 0px 0px 2px 1px #d08080;
+    box-shadow: 0px 0px 2px 1px #cdfdb9;
     margin: 10px;
 }
 
-/*.ctn-sector */.lnkSector:hover {
+.lnkSector:hover {
     text-decoration: none;
-    background-color:#d08080;
-    /* background-color: #c0e8f6; */
+    background-color:#cdfdb9;
 }
 
 .lnkSector p{
     font-weight: bold;
 }
 
-/*.ctn-sector */.sector .toopltip {
+.sector .toopltip {
     position: absolute;
     top: 50%;
     left: 0;
@@ -67,9 +63,6 @@ display: none;
     text-align: justify;
 }
 
-._margin_movil{
-    /* padding-left: 20px; */
-}
 
 
 @media (max-width: 575px) {
@@ -87,14 +80,14 @@ display: none;
 
     ._margin_movil{
         margin-left: 30px;
-    }       
+    }
 
     .lnkSector {
         display: block;
         text-align: center;
         width: 160px;
         height: 160px;
-        border: 2px solid  #9c0808;
+        border: 2px solid #65bd42;
         border-radius: 8px;
         color: #000;
         padding: 24px 0 12px;
@@ -121,7 +114,7 @@ display: none;
 
 @media (max-width: 575px) {
     ._img1{ display: none !important; }
-    ._img2{ display: inline !important; }    
+    ._img2{ display: inline !important; }
 }
 
 @media (min-width: 576px) {
@@ -135,4 +128,116 @@ display: none;
   font-size: 2.25rem;
   line-height: 1;
   font-weight: 400;
+} */
+
+
+h1 {
+  font-family: montserrat-bold,Arial;
+  color: rgb(0, 0, 0);
+  line-height: 1.5rem;
+}
+
+h3 {
+  font-family: montserrat-bold,Arial;
+  font-size: 1.125rem;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+p {
+  font-family: montserrat-regular,Arial;
+  font-size: .875rem;
+  line-height: 1;
+}
+
+.ctn-sector {
+  padding: 25px 0 40px;
+}
+
+.sector {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  padding-left: 38px;
+}
+
+.lnkSector {
+  display: block;
+  text-align: center;
+  width: 160px;
+  height: 160px;
+  border: 2px solid #65BD42;
+  border-radius: 8px;
+  color: #000;
+  padding: 24px 0 12px;
+  box-shadow: 0px 0px 2px 1px #e4e4e4;
+}
+
+.lnkSector:hover {
+  text-decoration: none;
+  background-color: rgba(101, 189, 66, 0.5);
+}
+
+.lnkSector._none:hover {
+  text-decoration: none;
+  background-color:transparent;
+}
+
+.lnkSector p{
+  font-weight: bold;
+}
+
+.sector .toopltip {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -13px;
+  margin-left: -80px;
+}
+
+.toopltip {
+  display: inline-block;
+  /* color: #65BD42; */
+  width: 200px;
+  height: 27px;
+  font-size: small;
+  /* background: url(/assets/images/info_icon.png) no-repeat; */
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.toopltip  ._none {
+  display: inline-block;
+  width: 100px;
+  height: 27px;
+  background: transparent;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.ctn-steps {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  min-height: 370px;
+}
+
+@media (min-width: 1200px){
+  .col-xl-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+  }
+}
+
+@media (min-width: 992px){
+  .col-lg-7 {
+      flex: 0 0 58.33333333%;
+      max-width: 58.33333333%;
+  }
+}
+
+@media (min-width: 768px){
+  .col-md-9 {
+      flex: 0 0 75%;
+      max-width: 75%;
+  }
 }

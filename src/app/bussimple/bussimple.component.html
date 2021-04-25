@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-sm mt-2 mb-3">
             <h3>
-              <div>Busqueda simple</div>
+              <div>Búsqueda simple</div>
             </h3>
             <h5>Busque la patente y conocimiento a través del nombre científico.</h5>
           </div>
@@ -35,7 +35,7 @@
                         styleClass="wid100"
                         ></p-autoComplete>
                     </div>
-                    <small class="form-text text-muted">Se búscará en todas las colecciones.</small>
+                    <small class="form-text text-muted">Se buscará en todas las colecciones.</small>
                   </div>
                   <div class="form-group col-sm-6">
                     <label>Actividad farmacológica</label>
@@ -53,28 +53,13 @@
             </div>
 
             <div>
-              <tabset>
+              <!-- <tabset>
                 <tab heading="Todos los resultados">
+
 
                   <div class="row">
                     <div class="col-sm mt-2 mb-3">
-                      <!-- <div class="row">
-                        <div class="col-sm-6">
-                          <h5>Se encontrarón 3 resultados.</h5>
-                        </div>
-                        <div class="col-sm-6">
-                          <button type="button" class="btn btn-outline-primary"
-                            style="float:right;margin-bottom: 5px;">Imprimir </button>
-                        </div>
-                      </div> -->
-
                       <div class="card">
-                        <!-- <h5>Programmatic Control</h5> -->
-                        <!-- <div class="p-mb-3">
-                            <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
-                            <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
-                            <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
-                        </div> -->
                         <p-table [value]="lstTodasColecciones" [paginator]="true" [rows]="rows"
                             [showCurrentPageReport]="true" [(first)]="first"
                             currentPageReportTemplate="Mostrando {first} de {last} - {totalRecords} registros"
@@ -116,7 +101,7 @@
                   </div>
                 </tab>
 
-              </tabset>
+              </tabset> -->
             </div>
           </tab>
 
@@ -128,6 +113,114 @@
     </div>
   </div>
 </div>
+
+<!-- aqui la tabla de busquedas gratuitas -->
+
+<div class="container-fluid">
+  <!-- Seccion de busqueda -->
+  <ng-container *ngIf="isShowTable">
+
+    <!-- Mensaje -->
+    <div class="row">
+      <div class="col-sm font-mr">
+        <div *ngIf="lstTodasColecciones.length < 200; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>Se encontraron {{lstTodasColecciones.length}} resultados.</ng-template>
+        <ng-template #elseBlock>
+          <small class="text-muted">Se encontraron {{lstTodasColecciones.length}} resultados.</small>
+        </ng-template>
+      </div>
+    </div>
+    <!-- Mensaje -->
+
+    <!-- Acciones -->
+
+    <div class="row text-right">
+      <div class="col-sm-12">
+        <div *ngIf="lstTodasColecciones.length > 0; then thenBlock_a else elseBlock_a"></div>
+        <ng-template #thenBlock_a>
+          <p>
+            <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="imprimir()"
+              tooltip="Imprimir búsqueda">
+              <span style="font-size: 1em; color: green">
+                <i class="fa fa-print"></i>
+              </span>
+            </button>
+            <button type="button" class="btn btn-light" (click)="showAll()" tooltip="Expandir/Contraer">
+              <span style="font-size: 1em; color: green;">
+
+                <i class="fa fa-expand" *ngIf="!isShowAll"></i>
+                <i class="fa fa-compress" *ngIf="isShowAll"></i>
+              </span>
+            </button>
+          </p>
+        </ng-template>
+        <ng-template #elseBlock_a>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Acciones -->
+
+    <!-- Tabla de busqueda -->
+    <div class="row">
+      <div class="col-sm-12">
+          <div *ngIf="lstTodasColecciones.length > 0; then thenBlock_b else elseBlock_b"></div>
+          <ng-template #thenBlock_b>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr class="font-mb">
+                <th>#</th>
+                <th>Fuente</th>
+                <th>Recurso(s)</th>
+                <th>Actividad</th>
+                <th>Solicitante/Pueblo Indigena/Autor</th>
+                <th>Nro. Registro / Nro. Publicación</th>
+                <th>Fecha Publicación / Presentación</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of lstTodasColecciones; let row = index" id="{{row}}">
+              <tr (click)="showOne(row)" class="row-hover">
+                <th>{{row + 1}}</th>
+                <td><b>{{item.vcFuente}}</b></td>
+                <td><div [innerHTML]="item.vcRecurso"></div></td>
+                <td>{{item.vcActividad}}</td>
+                <td>{{item.vcColumna3}}</td>
+                <td>{{item.vcNumero}}</td>
+                <td>{{item.vcFecha}}</td>
+                <td><button class="btn" (click)="doVerDetalle(item.nuIdTipoRegistro, item.nuIdRegistro, md_patentes, md_conocimiento)"
+                  ><i class="fa fa-arrows-alt"></i></button></td>
+                <td>
+                    <div *ngIf="row==idShow || isShowAll; else showIconDown">
+                      <i class="fa fa-chevron-up"></i>
+                    </div>
+                    <ng-template #showIconDown>
+                      <i class="fa fa-chevron-down"></i>
+                    </ng-template>
+                </td>
+              </tr>
+              <tr *ngIf="row==idShow || isShowAll">
+                <td *ngIf="item.nuIdTipoRegistro==1"><b>Resumen: </b></td>
+                <td *ngIf="item.nuIdTipoRegistro==2"><b>Descripción: </b></td>
+                <td colspan="8">
+                  <div [innerHTML]="item.vcResumen"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+      <ng-template #elseBlock_b>
+      </ng-template>
+      </div>
+    </div>
+    <!-- Tabla de busqueda -->
+
+  </ng-container>
+  <!-- Seccion de busqueda -->
+</div>
+
 
 
 <ng-template #md_patentes>
@@ -217,13 +310,13 @@
           </div>
         </div>
         <div class="form-group col-sm-12">
-          <h6>Resúmen en español</h6>
+          <h6>Resumen en español</h6>
           <div class="box_brown">
             <p class="mb-0"> {{objPatentes?.lstDatosPatentes[0]?.vcAbstracEspanol}}</p>
           </div>
         </div>
         <div class="form-group col-sm-12">
-          <h6>Resúmen en ingles</h6>
+          <h6>Resumen en inglés</h6>
 
           <div class="box_brown">
             <p class="mb-0">{{objPatentes?.lstDatosPatentes[0]?.vcAbstracIngles}}</p>

@@ -27,3 +27,6 @@ border-radius: 5px 5px 5px 5px;
 .row_table_bottom{
     border-bottom: 1px solid #d6d8db;
   }
+  .row-hover:hover {
+    background-color: #c7c7c7 !important;
+  }

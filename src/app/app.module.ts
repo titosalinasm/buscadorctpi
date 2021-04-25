@@ -43,6 +43,7 @@ import { DetalleService } from './services/detalle.service';
 import { BusquedaavanzadaService } from './services/busquedaavanzada.service';
 import { BusquedaconocimientoService } from './services/busquedaconocimiento.service';
 import { BusquedapatentesService } from './services/busquedapatentes.service';
+import { TooltipComponent } from './tooltip/tooltip.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { BusquedapatentesService } from './services/busquedapatentes.service';
     BannerPrincipalComponent,
     MenuComponent,
     BussimpleComponent,
-    BusavanzadoComponent
+    BusavanzadoComponent,
+    TooltipComponent
   ],
   imports: [
     BrowserModule,
