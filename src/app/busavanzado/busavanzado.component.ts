@@ -2,11 +2,13 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { BusquedaavanzadaService } from '../services/busquedaavanzada.service';
 import { BusquedaconocimientoService } from '../services/busquedaconocimiento.service';
 import { BusquedapatentesService } from '../services/busquedapatentes.service';
 import { DetalleService } from '../services/detalle.service';
+import { ExcelService } from '../services/excel.service';
 import { LstgeneralService } from '../services/lstgeneral.service';
 import { RecursoService } from '../services/recurso.service';
 
@@ -149,6 +151,8 @@ export class BusavanzadoComponent implements OnInit {
               private _busquedaavanzadaService: BusquedaavanzadaService,
               private _recursoService:  RecursoService,
               private _detalleService : DetalleService,
+              private _excelService:ExcelService,
+              private toastr: ToastrService,
               ) {
 
                 this.doCargarLstGenerales();
@@ -659,6 +663,80 @@ doShowTab(item : any){
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { id: 1, class: 'modal-lg' });
+  }
+
+  exportAvanzadoPatente():void {
+    let lstReporteExcel : any=[];
+    for(let i=0; i<this.lstResultadoPatente.length; i++){
+      let objExcel : any={}
+      // objExcel.ID_CONOCIMIENTO=this.lstTodasColecciones[i].nuIdRegistro;
+      // objExcel.=this.lstTodasColecciones[i].nuIdTipoRegistro;
+      objExcel.FUENTE=this.lstResultadoPatente[i].vcFuente;
+      objExcel.RECURSO=this.lstResultadoPatente[i].vcRecurso.replace("<span class='search'>", '').replace("</span>", '');
+      objExcel.ACTIVIDAD=this.lstResultadoPatente[i].vcActividad;
+      objExcel.SOLICITANTE_PUEBLO_AUTOR=this.lstResultadoPatente[i].vcColumna3;
+      objExcel.NUMERO=this.lstResultadoPatente[i].vcNumero;
+      objExcel.FECHA_PRESENTACION_REGISTRO=this.lstResultadoPatente[i].vcFecha;
+      objExcel.RESUMEN=this.lstResultadoPatente[i].vcResumen.replace("<span class='search'>", '').replace("</span>", '');;
+      objExcel.TITULO_ORIGINAL=this.lstResultadoPatente[i].vcTituloOriginal;
+      objExcel.FECHA_PUBLICACION_PRESENTACION=this.lstResultadoPatente[i].vcFechaPublicacion;
+
+      lstReporteExcel.push(objExcel);
+    }
+    if(lstReporteExcel.length>0)
+     this._excelService.exportAsExcelFile(lstReporteExcel, 'Búsqueda avanzada patentes');
+     else
+     this.toastr.warning('No se han encontrado registros para exportar', 'No hay data');
+  }
+
+  exportAvanzadoConocimiento():void {
+    let lstReporteExcel : any=[];
+    for(let i=0; i<this.lstResultadoConocimiento.length; i++){
+      let objExcel : any={}
+      // objExcel.ID_CONOCIMIENTO=this.lstTodasColecciones[i].nuIdRegistro;
+      // objExcel.=this.lstTodasColecciones[i].nuIdTipoRegistro;
+      objExcel.FUENTE=this.lstResultadoConocimiento[i].vcFuente;
+      objExcel.RECURSO=this.lstResultadoConocimiento[i].vcRecurso.replace("<span class='search'>", '').replace("</span>", '');
+      objExcel.ACTIVIDAD=this.lstResultadoConocimiento[i].vcActividad;
+      objExcel.SOLICITANTE_PUEBLO_AUTOR=this.lstResultadoConocimiento[i].vcColumna3;
+      objExcel.NUMERO=this.lstResultadoConocimiento[i].vcNumero;
+      objExcel.FECHA_PRESENTACION_REGISTRO=this.lstResultadoConocimiento[i].vcFecha;
+      objExcel.RESUMEN=this.lstResultadoConocimiento[i].vcResumen.replace("<span class='search'>", '').replace("</span>", '');;
+      objExcel.TITULO_ORIGINAL=this.lstResultadoConocimiento[i].vcTituloOriginal;
+      objExcel.FECHA_PUBLICACION_PRESENTACION=this.lstResultadoConocimiento[i].vcFechaPublicacion;
+      objExcel.TITULO=this.lstResultadoConocimiento[i].vcTituloArticulo;
+      objExcel.TIPO_BIBLIOGRAFIA=this.lstResultadoConocimiento[i].vcTipoBibliografia;
+
+      lstReporteExcel.push(objExcel);
+    }
+    if(lstReporteExcel.length>0)
+     this._excelService.exportAsExcelFile(lstReporteExcel, 'Búsqueda avanzada conocimientos');
+     else
+     this.toastr.warning('No se han encontrado registros para exportar', 'No hay data');
+  }
+
+  exportAvanzadoTodos():void {
+    let lstReporteExcel : any=[];
+    for(let i=0; i<this.lstResultadoAvanzado.length; i++){
+      let objExcel : any={}
+      // objExcel.ID_CONOCIMIENTO=this.lstTodasColecciones[i].nuIdRegistro;
+      // objExcel.=this.lstTodasColecciones[i].nuIdTipoRegistro;
+      objExcel.FUENTE=this.lstResultadoAvanzado[i].vcFuente;
+      objExcel.RECURSO=this.lstResultadoAvanzado[i].vcRecurso.replace("<span class='search'>", '').replace("</span>", '');
+      objExcel.ACTIVIDAD=this.lstResultadoAvanzado[i].vcActividad;
+      objExcel.SOLICITANTE_PUEBLO_AUTOR=this.lstResultadoAvanzado[i].vcColumna3;
+      objExcel.NUMERO=this.lstResultadoAvanzado[i].vcNumero;
+      objExcel.FECHA_PRESENTACION_REGISTRO=this.lstResultadoAvanzado[i].vcFecha;
+      objExcel.RESUMEN=this.lstResultadoAvanzado[i].vcResumen.replace("<span class='search'>", '').replace("</span>", '');;
+      objExcel.TITULO_ORIGINAL=this.lstResultadoAvanzado[i].vcTituloOriginal;
+      objExcel.FECHA_PUBLICACION_PRESENTACION=this.lstResultadoAvanzado[i].vcFechaPublicacion;
+
+      lstReporteExcel.push(objExcel);
+    }
+    if(lstReporteExcel.length>0)
+     this._excelService.exportAsExcelFile(lstReporteExcel, 'Búsqueda avanzada todos');
+     else
+     this.toastr.warning('No se han encontrado registros para exportar', 'No hay data');
   }
 
 

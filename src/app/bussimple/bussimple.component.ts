@@ -2,8 +2,10 @@ import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { CountriesService } from '../services/countries.service';
 import { DetalleService } from '../services/detalle.service';
+import { ExcelService } from '../services/excel.service';
 import { LstgeneralService } from '../services/lstgeneral.service';
 import { RecursoService } from '../services/recurso.service';
 import { TodoscoleccionesService } from '../services/todoscolecciones.service';
@@ -59,7 +61,10 @@ export class BussimpleComponent implements OnInit {
               private _lstgeneralService : LstgeneralService,
               private _recursoService:  RecursoService,
               private _todoscoleccionesService: TodoscoleccionesService,
-              private _detalleService : DetalleService) {
+              private _detalleService : DetalleService,
+              private _excelService:ExcelService,
+              private toastr: ToastrService,
+              ) {
 
               this.doCargarLstGenerales();
 
@@ -234,5 +239,30 @@ isLastPage(): boolean {
 isFirstPage(): boolean {
   return this.lstTodasColecciones ? this.first === 0 : true;
 }
+
+exportAsXLSXSimple():void {
+  let lstReporteExcel : any=[];
+  for(let i=0; i<this.lstTodasColecciones.length; i++){
+    let objExcel : any={}
+    // objExcel.ID_CONOCIMIENTO=this.lstTodasColecciones[i].nuIdRegistro;
+    // objExcel.=this.lstTodasColecciones[i].nuIdTipoRegistro;
+    objExcel.FUENTE=this.lstTodasColecciones[i].vcFuente;
+    objExcel.RECURSO=this.lstTodasColecciones[i].vcRecurso.replace("<span class='search'>", '').replace("</span>", '');
+    objExcel.ACTIVIDAD=this.lstTodasColecciones[i].vcActividad;
+    objExcel.SOLICITANTE_PUEBLO_AUTOR=this.lstTodasColecciones[i].vcColumna3;
+    objExcel.NUMERO=this.lstTodasColecciones[i].vcNumero;
+    objExcel.FECHA_PRESENTACION_REGISTRO=this.lstTodasColecciones[i].vcFecha;
+    objExcel.RESUMEN=this.lstTodasColecciones[i].vcResumen.replace("<span class='search'>", '').replace("</span>", '');;
+    objExcel.TITULO_ORIGINAL=this.lstTodasColecciones[i].vcTituloOriginal;
+    objExcel.FECHA_PUBLICACION_PRESENTACION=this.lstTodasColecciones[i].vcFechaPublicacion;
+
+    lstReporteExcel.push(objExcel);
+  }
+  if(lstReporteExcel.length>0)
+   this._excelService.exportAsExcelFile(lstReporteExcel, 'Búsqueda simple Conocimientos/Patentes');
+   else
+   this.toastr.warning('No se han encontrado registros para exportar', 'No hay data');
+}
+
 
 }

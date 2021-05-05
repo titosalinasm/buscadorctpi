@@ -139,6 +139,12 @@
         <div *ngIf="lstTodasColecciones.length > 0; then thenBlock_a else elseBlock_a"></div>
         <ng-template #thenBlock_a>
           <p>
+            <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="exportAsXLSXSimple()"
+              tooltip="Exportar a excel">
+              <span style="font-size: 1em; color: green">
+                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+              </span>
+            </button>
             <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="imprimir()"
               tooltip="Imprimir búsqueda">
               <span style="font-size: 1em; color: green">

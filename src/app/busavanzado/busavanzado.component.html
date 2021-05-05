@@ -506,6 +506,12 @@
             <div *ngIf="lstResultadoPatente?.length > 0; then thenBlock_a else elseBlock_a"></div>
             <ng-template #thenBlock_a>
               <p>
+                <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="exportAvanzadoPatente()"
+                tooltip="Exportar a excel">
+                <span style="font-size: 1em; color: green">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                </span>
+              </button>
                 <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="imprimir()"
                   tooltip="Imprimir búsqueda">
                   <span style="font-size: 1em; color: green">
@@ -541,9 +547,9 @@
                     <th>Fuente</th>
                     <th>Recurso(s)</th>
                     <th>Actividad</th>
-                    <th>Solicitante/Pueblo Indigena/Autor</th>
-                    <th>Nro. Registro / Nro. Publicación</th>
-                    <th>Fecha Publicación / Presentación</th>
+                    <th>Título original</th>
+                    <th>Nro. Publicación</th>
+                    <th>Fecha Publicación</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -553,9 +559,9 @@
                     <td><b>{{item.vcFuente}}</b></td>
                     <td><div [innerHTML]="item.vcRecurso"></div></td>
                     <td>{{item.vcActividad}}</td>
-                    <td>{{item.vcColumna3}}</td>
-                    <td>{{item.vcNumero}}</td>
-                    <td>{{item.vcFecha}}</td>
+                    <td>{{item.vcTituloOriginal}}</td>
+                    <td>{{item.vcNroPublicacion}}</td>
+                    <td>{{item.vcFechaPublicacion}}</td>
                     <td><button class="btn" (click)="doVerDetalle(item.nuIdTipoRegistro, item.nuIdRegistro, md_patentes, md_conocimiento)"
                       ><i class="fa fa-arrows-alt"></i></button></td>
                     <td>
@@ -611,6 +617,12 @@
           <div *ngIf="lstResultadoConocimiento?.length > 0; then thenBlock_a else elseBlock_a"></div>
           <ng-template #thenBlock_a>
             <p>
+              <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="exportAvanzadoConocimiento()"
+              tooltip="Exportar a excel">
+              <span style="font-size: 1em; color: green">
+                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+              </span>
+            </button>
               <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="imprimir()"
                 tooltip="Imprimir búsqueda">
                 <span style="font-size: 1em; color: green">
@@ -646,9 +658,11 @@
                   <th>Fuente</th>
                   <th>Recurso</th>
                   <th>Actividad</th>
-                  <th>Solicitante</th>
-                  <th>Nro. Registro</th>
-                  <th>Fecha Publicación</th>
+                  <th>Autor</th>
+                  <th>Lugar de publicación</th>
+                  <th>Fecha de publicacón</th>
+                  <th>Título</th>
+                  <th>Tipo de bibliografía</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -658,9 +672,11 @@
                   <td><b>{{item.vcFuente}}</b></td>
                   <td><div [innerHTML]="item.vcRecurso"></div></td>
                   <td>{{item.vcActividad}}</td>
-                  <td>{{item.vcColumna3}}</td>
-                  <td>{{item.vcNumero}}</td>
-                  <td>{{item.vcFecha}}</td>
+                  <td>{{item.vcAutor}}</td>
+                  <td>{{item.vcLugarPublicacion}}</td>
+                  <td>{{item.vcFechaPublicacionConocimiento}}</td>
+                  <td>{{item.vcTituloArticulo}}</td>
+                  <td>{{item.vcTipoBibliografia}}</td>
                   <td><button class="btn" (click)="doVerDetalle(item.nuIdTipoRegistro, item.nuIdRegistro, md_patentes, md_conocimiento)"
                     ><i class="fa fa-arrows-alt"></i></button></td>
                   <td>
@@ -716,6 +732,12 @@
             <div *ngIf="lstResultadoAvanzado?.length > 0; then thenBlock_a else elseBlock_a"></div>
             <ng-template #thenBlock_a>
               <p>
+                <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="exportAvanzadoTodos()"
+                tooltip="Exportar a excel">
+                <span style="font-size: 1em; color: green">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                </span>
+              </button>
                 <button type="button" class="btn btn-light" style="margin-right: 3px;" (click)="imprimir()"
                   tooltip="Imprimir búsqueda">
                   <span style="font-size: 1em; color: green">
@@ -953,13 +975,18 @@
 
     <ng-template #md_conocimiento>
       <div class="modal-header">
-        <div class="form-row">
+        <!-- <div class="form-row">
           <div class="form-group col-sm-12" style="margin-bottom: 0px;">
             <button (click)="doMostrarConocimientoFlag()" style="float:right;margin-bottom: 5px;" type="button" class="btn btn-outline-primary pull-right"><i class="fa fa-arrows-alt"></i></button>
             CONOCIMIENTO
-            <!-- <button (click)="printToSeccion('')" type="button" style="float:right;margin-bottom: 5px;" class="btn btn-outline-primary pull-right"><i class="fa fa-print"></i></button> -->
           </div>
-        </div>
+        </div> -->
+        <form class="form-inline">
+          <div class="form-group mb-2">
+            <button (click)="doMostrarConocimientoFlag()" style="float:right;margin-bottom: 5px;" type="button" class="btn btn-outline-primary pull-right"><i class="fa fa-arrows-alt"></i></button>
+            <h4> CONOCIMIENTO</h4>
+          </div>
+        </form>
         <!-- <h4 class="modal-title pull-left">Conocimiento</h4> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
           <span aria-hidden="true">&times;</span>
